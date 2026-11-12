@@ -221,7 +221,8 @@
         </tbody>
         <tfoot>
           <tr><td colspan="5" style="padding:6px 10px;"><label style="font-size:11px;color:var(--light-gray);">Note:</label> <input type="text" class="section-note" placeholder="Eventuali note per ANYcat..." style="width:calc(100% - 50px);border:none;border-bottom:1px solid #e0e4e8;font-size:12px;padding:3px 4px;color:var(--body-gray);background:transparent;"></td></tr>
-          <tr class="totale-row"><td colspan="4">Subtotale ANYcat</td><td class="col-tot" id="sub_anycat">€ 0,00</td></tr>
+          <tr class="totale-row"><td colspan="4">Subtotale servizi ANYcat</td><td class="col-tot" id="sub_anycat_servizi">€ 0,00</td></tr>
+          <tr class="totale-row"><td colspan="4">Subtotale crediti ricaricabili ANYcat</td><td class="col-tot" id="sub_anycat_ricariche">€ 0,00</td></tr>
         </tfoot>
       </table>
     </div>
@@ -267,7 +268,8 @@
         </tbody>
         <tfoot>
           <tr><td colspan="5" style="padding:6px 10px;"><label style="font-size:11px;color:var(--light-gray);">Note:</label> <input type="text" class="section-note" placeholder="Eventuali note per ANYpro..." style="width:calc(100% - 50px);border:none;border-bottom:1px solid #e0e4e8;font-size:12px;padding:3px 4px;color:var(--body-gray);background:transparent;"></td></tr>
-          <tr class="totale-row"><td colspan="4">Subtotale ANYpro</td><td class="col-tot" id="sub_anypro">€ 0,00</td></tr>
+          <tr class="totale-row"><td colspan="4">Subtotale servizi ANYpro</td><td class="col-tot" id="sub_anypro_servizi">€ 0,00</td></tr>
+          <tr class="totale-row"><td colspan="4">Subtotale crediti ricaricabili ANYpro</td><td class="col-tot" id="sub_anypro_ricariche">€ 0,00</td></tr>
         </tfoot>
       </table>
     </div>
@@ -491,9 +493,9 @@ function recalc() {
     return r;
   }
 
-  // Generic row calc — separa ricariche (targhe/telai) dai canoni
+  // Generic row calc — restituisce {total, servizi, ricariche}
   function calcRows(tbodyId) {
-    let sub = 0;
+    let servizi = 0, ricariche = 0;
     document.querySelectorAll('#'+tbodyId+' tr').forEach(row => {
       const qtyInput = row.querySelector('.qty');
       const qty = parseInt(qtyInput ? qtyInput.value : 0) || 0;
@@ -503,11 +505,13 @@ function recalc() {
       if (totCell) totCell.textContent = fmt(total);
       row.classList.toggle('row-hidden-print', hideEmpty && qty === 0);
       if (row.dataset.ricarica === '1') {
-        totRicariche += total;
+        ricariche += total;
+      } else {
+        servizi += total;
       }
-      sub += total;
     });
-    return sub;
+    totRicariche += ricariche;
+    return { total: servizi + ricariche, servizi, ricariche };
   }
 
   const catOn = !document.getElementById('sec_anycat').classList.contains('section-excluded');
@@ -528,12 +532,17 @@ function recalc() {
     }
   }
 
-  subCat = calcRows('tbody_anycat');
-  subPro = calcRows('tbody_anypro');
-  subMod = calcRows('tbody_moduli');
+  const resCat = calcRows('tbody_anycat');
+  const resPro = calcRows('tbody_anypro');
+  subMod = calcRows('tbody_moduli').total;
 
-  document.getElementById('sub_anycat').textContent = fmt(subCat);
-  document.getElementById('sub_anypro').textContent = fmt(subPro);
+  subCat = resCat.total;
+  subPro = resPro.total;
+
+  document.getElementById('sub_anycat_servizi').textContent = fmt(resCat.servizi);
+  document.getElementById('sub_anycat_ricariche').textContent = fmt(resCat.ricariche);
+  document.getElementById('sub_anypro_servizi').textContent = fmt(resPro.servizi);
+  document.getElementById('sub_anypro_ricariche').textContent = fmt(resPro.ricariche);
   document.getElementById('sub_moduli').textContent = fmt(subMod);
 
   // Webservice — same pattern: unit price (canone) + activation, both with promo override
@@ -564,8 +573,16 @@ function recalc() {
   });
   document.getElementById('sub_ws').textContent = fmt(subWs);
 
-  if (!catOn) { totRicariche -= calcRicariche('tbody_anycat'); subCat = 0; }
-  if (!proOn) { totRicariche -= calcRicariche('tbody_anypro'); subPro = 0; }
+  if (!catOn) {
+    totRicariche -= calcRicariche('tbody_anycat'); subCat = 0;
+    document.getElementById('sub_anycat_servizi').textContent = fmt(0);
+    document.getElementById('sub_anycat_ricariche').textContent = fmt(0);
+  }
+  if (!proOn) {
+    totRicariche -= calcRicariche('tbody_anypro'); subPro = 0;
+    document.getElementById('sub_anypro_servizi').textContent = fmt(0);
+    document.getElementById('sub_anypro_ricariche').textContent = fmt(0);
+  }
   if (!modOn) subMod = 0;
   if (!wsOn) { subWsAtt = 0; subWsCanone2 = 0; subWs = 0; }
 
