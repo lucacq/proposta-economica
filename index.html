@@ -13,12 +13,12 @@
     --row-alt: #F5F7FA; --row-head: #E8EDF2; --white: #FFFFFF;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'Segoe UI',Calibri,Arial,sans-serif; color:var(--body-gray); background:#f8fafb; }
-  .page { max-width:900px; margin:0 auto; background:var(--white); min-height:100vh; }
+  body { font-family:'Segoe UI',Calibri,Arial,sans-serif; color:var(--body-gray); background:linear-gradient(135deg,#f0f4f8 0%,#e8edf2 100%); min-height:100vh; }
+  .page { max-width:900px; margin:0 auto; background:var(--white); min-height:100vh; box-shadow:0 4px 24px rgba(26,37,53,0.08); }
 
-  .header { background:var(--row-head); padding:12px 40px; display:flex; align-items:center; justify-content:space-between; }
+  .header { background:linear-gradient(135deg,#f5f7fa 0%,var(--row-head) 100%); padding:16px 40px; display:flex; align-items:center; justify-content:space-between; border-bottom:2px solid var(--teal); }
   .header img { height:38px; }
-  .header .badge { background:var(--teal); color:white; font-size:11px; font-weight:700; padding:5px 16px; border-radius:4px; }
+  .header .badge { background:var(--teal); color:white; font-size:11px; font-weight:700; padding:6px 18px; border-radius:20px; letter-spacing:0.5px; }
 
   .content { padding:30px 40px 20px; }
   .section-label { font-size:11px; font-weight:700; color:var(--green); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:4px; }
@@ -34,9 +34,10 @@
   .field input,.field select { width:100%; padding:8px 10px; border:1px solid #d0d8e0; border-radius:5px; font-size:14px; color:var(--dark-bg); background:var(--white); }
   .field input:focus,.field select:focus { outline:none; border-color:var(--teal); box-shadow:0 0 0 2px rgba(2,128,144,0.12); }
 
-  .price-section { margin-bottom:24px; }
-  .section-header { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
-  .section-header h3 { font-size:14px; color:var(--dark-bg); font-weight:700; margin-bottom:0; }
+  .price-section { margin-bottom:28px; border-left:3px solid #d0d8e0; padding-left:16px; transition:border-color 0.3s; }
+  .price-section:not(.section-excluded) { border-left-color:var(--teal); }
+  .section-header { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .section-header h3 { font-size:15px; color:var(--dark-bg); font-weight:700; margin-bottom:0; }
   .section-toggle { position:relative; width:38px; height:20px; flex-shrink:0; }
   .section-toggle input { opacity:0; width:0; height:0; }
   .section-toggle .slider { position:absolute; cursor:pointer; top:0;left:0;right:0;bottom:0; background:#ccd3db; border-radius:20px; transition:0.25s; }
@@ -50,9 +51,10 @@
   .section-tag { font-size:10px; color:var(--light-gray); font-weight:400; margin-left:4px; }
 
   table { width:100%; border-collapse:collapse; font-size:13px; }
-  thead th { background:var(--row-head); color:var(--dark-bg); font-weight:700; text-align:left; padding:8px 10px; font-size:12px; }
-  tbody td { padding:7px 10px; border-bottom:1px solid #edf0f3; vertical-align:middle; }
+  thead th { background:linear-gradient(180deg,#edf1f5 0%,#e4e9ef 100%); color:var(--dark-bg); font-weight:700; text-align:left; padding:9px 10px; font-size:12px; text-transform:uppercase; letter-spacing:0.3px; }
+  tbody td { padding:8px 10px; border-bottom:1px solid #edf0f3; vertical-align:middle; }
   tbody tr:nth-child(even) { background:var(--row-alt); }
+  tbody tr:hover { background:#e8f4f8; }
   .col-voce { min-width:200px; }
   .col-listino { width:100px; font-size:12px; color:var(--light-gray); text-align:right; }
   .col-promo { width:110px; }
@@ -63,8 +65,8 @@
   .col-qty input { width:65px; padding:4px 6px; border:1px solid #d0d8e0; border-radius:4px; font-size:13px; text-align:right; }
   .col-qty input:focus { outline:none; border-color:var(--teal); }
   .col-tot { width:100px; text-align:right; font-weight:600; }
-  .totale-row { background:var(--card-bg)!important; }
-  .totale-row td { font-weight:700; color:var(--dark-bg); font-size:15px; padding:12px 10px; }
+  .totale-row { background:linear-gradient(90deg,#e8f0f2 0%,var(--card-bg) 100%)!important; }
+  .totale-row td { font-weight:700; color:var(--dark-bg); font-size:14px; padding:12px 10px; border-top:2px solid var(--teal); }
 
   .tier-ref { font-size:10px; color:var(--light-gray); margin-top:2px; }
   .tier-btn { background:none; border:1px solid #d0d8e0; border-radius:3px; padding:1px 7px; font-size:10px; color:var(--teal); cursor:pointer; font-family:inherit; }
@@ -72,17 +74,17 @@
   .tier-detail { display:none; margin-top:3px; padding:4px 8px; background:#f0f7f8; border-radius:4px; font-size:10px; line-height:1.6; color:var(--body-gray); }
   .tier-detail.open { display:block; }
 
-  .notes { margin-top:24px; padding:16px 20px; background:#edf7f5; border-radius:6px; font-size:12px; line-height:1.7; }
-  .notes strong { color:var(--dark-bg); }
-  .footer { background:var(--footer-bg); padding:14px 40px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-top:30px; }
+  .notes { margin-top:28px; padding:20px 24px; background:linear-gradient(135deg,#f0f8f6 0%,#edf7f5 100%); border-radius:8px; font-size:12px; line-height:1.8; border:1px solid #d4ebe5; }
+  .notes strong { color:var(--dark-bg); font-weight:600; }
+  .footer { background:linear-gradient(135deg,var(--footer-bg) 0%,#172433 100%); padding:18px 40px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-top:30px; }
   .footer span { color:var(--light-gray); font-size:12px; }
   .actions { display:flex; gap:12px; margin-top:24px; justify-content:flex-end; flex-wrap:wrap; }
-  .btn { padding:10px 24px; border:none; border-radius:6px; font-size:14px; font-weight:600; cursor:pointer; }
-  .btn-primary { background:var(--teal); color:white; }
-  .btn-primary:hover { background:#026e7a; }
-  .btn-secondary { background:var(--card-bg); color:var(--dark-bg); }
+  .btn { padding:11px 28px; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; transition:all 0.2s; }
+  .btn-primary { background:linear-gradient(135deg,var(--teal) 0%,#026e7a 100%); color:white; box-shadow:0 2px 8px rgba(2,128,144,0.25); }
+  .btn-primary:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(2,128,144,0.35); }
+  .btn-secondary { background:var(--card-bg); color:var(--dark-bg); border:1px solid #d0d8e0; }
   .btn-secondary:hover { background:#e0e6ec; }
-  .validity { margin-top:20px; font-size:12px; color:var(--light-gray); text-align:center; }
+  .validity { margin-top:20px; font-size:12px; color:var(--light-gray); text-align:center; font-style:italic; }
 
   .print-filter { background:var(--card-bg); border-radius:6px; padding:10px 16px; margin-bottom:20px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
   .print-filter label { font-size:12px; color:var(--body-gray); cursor:pointer; display:flex; align-items:center; gap:5px; }
@@ -109,8 +111,8 @@
     .field-row { flex-direction:column; gap:8px; }
     .field { min-width:100%; }
   }
-  #lock-screen { position:fixed; inset:0; z-index:9999; background:var(--dark-bg); display:flex; align-items:center; justify-content:center; }
-  #lock-screen .lock-box { background:var(--white); border-radius:12px; padding:40px 36px; text-align:center; max-width:360px; width:90%; box-shadow:0 8px 32px rgba(0,0,0,0.3); }
+  #lock-screen { position:fixed; inset:0; z-index:9999; background:linear-gradient(135deg,var(--dark-bg) 0%,#0d1a28 100%); display:flex; align-items:center; justify-content:center; }
+  #lock-screen .lock-box { background:var(--white); border-radius:16px; padding:44px 40px; text-align:center; max-width:380px; width:90%; box-shadow:0 16px 48px rgba(0,0,0,0.4); }
   #lock-screen .lock-box img { height:32px; margin-bottom:16px; }
   #lock-screen .lock-box h2 { font-size:18px; color:var(--dark-bg); margin-bottom:6px; }
   #lock-screen .lock-box p { font-size:13px; color:var(--light-gray); margin-bottom:20px; }
@@ -164,7 +166,7 @@
       </div>
       <div class="field-row">
         <div class="field"><label>Data proposta</label><input type="date" id="data_proposta"></div>
-        <div class="field"><label>Validità (giorni)</label><input type="number" id="validita" value="30" min="1"></div>
+        <div class="field"><label>Validità (giorni)</label><input type="number" id="validita" value="15" min="1"></div>
         <div class="field"><label>N. Proposta</label><input type="text" id="n_proposta" placeholder="2026/001"></div>
       </div>
     </div>
@@ -202,22 +204,25 @@
             <td class="col-qty"><input type="number" min="0" value="0" class="qty" onchange="recalc()"></td>
             <td class="col-tot">€ 0,00</td>
           </tr>
-          <tr data-unit="105" data-tiers="500:105|1000:190|2000:340|4000:600|6000:840|8000:1040">
-            <td class="col-voce">Crediti Targhe ANYcat<div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">pacchetti ▾</button><div class="tier-detail">500 → €105 · 1000 → €190 · 2000 → €340 · 4000 → €600 · 6000 → €840 · 8000 → €1040</div></div></td>
-            <td class="col-listino">€ 105,00</td>
+          <tr data-unit="0.21" data-ricarica="1">
+            <td class="col-voce">Crediti Targhe ANYcat<div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">scaglioni ▾</button><div class="tier-detail">500 → € 0,21/cad · 1.000 → € 0,19/cad · 2.000 → € 0,17/cad · 4.000 → € 0,15/cad · 6.000 → € 0,14/cad · 8.000 → € 0,13/cad</div></div></td>
+            <td class="col-listino">€ 0,21/cad</td>
             <td class="col-promo"><input type="number" min="0" step="0.01" placeholder="promo" onchange="recalc()"></td>
             <td class="col-qty"><input type="number" min="0" value="0" class="qty" onchange="recalc()"></td>
             <td class="col-tot">€ 0,00</td>
           </tr>
-          <tr data-unit="110" data-tiers="500:110|1000:200|2000:360|4000:640|6000:900">
-            <td class="col-voce">Crediti Telai ANYcat<div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">pacchetti ▾</button><div class="tier-detail">500 → €110 · 1000 → €200 · 2000 → €360 · 4000 → €640 · 6000 → €900</div></div></td>
-            <td class="col-listino">€ 110,00</td>
+          <tr data-unit="0.22" data-ricarica="1">
+            <td class="col-voce">Crediti Telai ANYcat<div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">scaglioni ▾</button><div class="tier-detail">500 → € 0,22/cad · 1.000 → € 0,20/cad · 2.000 → € 0,18/cad · 4.000 → € 0,16/cad · 6.000 → € 0,15/cad</div></div></td>
+            <td class="col-listino">€ 0,22/cad</td>
             <td class="col-promo"><input type="number" min="0" step="0.01" placeholder="promo" onchange="recalc()"></td>
             <td class="col-qty"><input type="number" min="0" value="0" class="qty" onchange="recalc()"></td>
             <td class="col-tot">€ 0,00</td>
           </tr>
         </tbody>
-        <tfoot><tr class="totale-row"><td colspan="4">Subtotale ANYcat</td><td class="col-tot" id="sub_anycat">€ 0,00</td></tr></tfoot>
+        <tfoot>
+          <tr><td colspan="5" style="padding:6px 10px;"><label style="font-size:11px;color:var(--light-gray);">Note:</label> <input type="text" class="section-note" placeholder="Eventuali note per ANYcat..." style="width:calc(100% - 50px);border:none;border-bottom:1px solid #e0e4e8;font-size:12px;padding:3px 4px;color:var(--body-gray);background:transparent;"></td></tr>
+          <tr class="totale-row"><td colspan="4">Subtotale ANYcat</td><td class="col-tot" id="sub_anycat">€ 0,00</td></tr>
+        </tfoot>
       </table>
     </div>
 
@@ -252,15 +257,18 @@
             <td class="col-qty"><input type="number" min="0" value="0" class="qty" onchange="recalc()"></td>
             <td class="col-tot">€ 0,00</td>
           </tr>
-          <tr data-unit="50" data-tiers="250:50|500:90|1000:160|2000:260|3500:420|5000:550">
-            <td class="col-voce">Crediti Targhe ANYpro<div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">pacchetti ▾</button><div class="tier-detail">250 → €50 · 500 → €90 · 1000 → €160 · 2000 → €260 · 3500 → €420 · 5000 → €550</div></div></td>
-            <td class="col-listino">€ 50,00</td>
+          <tr data-unit="0.20" data-ricarica="1">
+            <td class="col-voce">Crediti Targhe ANYpro<div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">scaglioni ▾</button><div class="tier-detail">250 → € 0,20/cad · 500 → € 0,18/cad · 1.000 → € 0,16/cad · 2.000 → € 0,13/cad · 3.500 → € 0,12/cad · 5.000 → € 0,11/cad</div></div></td>
+            <td class="col-listino">€ 0,20/cad</td>
             <td class="col-promo"><input type="number" min="0" step="0.01" placeholder="promo" onchange="recalc()"></td>
             <td class="col-qty"><input type="number" min="0" value="0" class="qty" onchange="recalc()"></td>
             <td class="col-tot">€ 0,00</td>
           </tr>
         </tbody>
-        <tfoot><tr class="totale-row"><td colspan="4">Subtotale ANYpro</td><td class="col-tot" id="sub_anypro">€ 0,00</td></tr></tfoot>
+        <tfoot>
+          <tr><td colspan="5" style="padding:6px 10px;"><label style="font-size:11px;color:var(--light-gray);">Note:</label> <input type="text" class="section-note" placeholder="Eventuali note per ANYpro..." style="width:calc(100% - 50px);border:none;border-bottom:1px solid #e0e4e8;font-size:12px;padding:3px 4px;color:var(--body-gray);background:transparent;"></td></tr>
+          <tr class="totale-row"><td colspan="4">Subtotale ANYpro</td><td class="col-tot" id="sub_anypro">€ 0,00</td></tr>
+        </tfoot>
       </table>
     </div>
 
@@ -280,7 +288,10 @@
           <tr data-unit="40"><td>Prezzi di listino al pubblico</td><td class="col-listino">€ 40,00</td><td class="col-promo"><input type="number" min="0" step="0.01" placeholder="promo" onchange="recalc()"></td><td class="col-qty"><input type="number" min="0" value="0" class="qty" onchange="recalc()"></td><td class="col-tot">€ 0,00</td></tr>
           <tr data-unit="120"><td>Condizioni di Vendita</td><td class="col-listino">€ 120,00</td><td class="col-promo"><input type="number" min="0" step="0.01" placeholder="promo" onchange="recalc()"></td><td class="col-qty"><input type="number" min="0" value="0" class="qty" onchange="recalc()"></td><td class="col-tot">€ 0,00</td></tr>
         </tbody>
-        <tfoot><tr class="totale-row"><td colspan="4">Subtotale Moduli</td><td class="col-tot" id="sub_moduli">€ 0,00</td></tr></tfoot>
+        <tfoot>
+          <tr><td colspan="5" style="padding:6px 10px;"><label style="font-size:11px;color:var(--light-gray);">Note:</label> <input type="text" class="section-note" placeholder="Eventuali note per Moduli..." style="width:calc(100% - 50px);border:none;border-bottom:1px solid #e0e4e8;font-size:12px;padding:3px 4px;color:var(--body-gray);background:transparent;"></td></tr>
+          <tr class="totale-row"><td colspan="4">Subtotale Moduli</td><td class="col-tot" id="sub_moduli">€ 0,00</td></tr>
+        </tfoot>
       </table>
     </div>
 
@@ -299,37 +310,72 @@
           <tr data-unit="200" data-att="50"><td class="col-voce">Webservice ANYweb per ERP</td><td class="col-listino">€ 200,00</td><td class="col-promo"><input type="number" min="0" step="0.01" placeholder="promo" onchange="recalc()"></td><td class="col-listino">€ 50,00</td><td class="col-promo"><input type="number" min="0" step="0.01" class="att-promo" placeholder="promo" onchange="recalc()"></td><td class="col-qty"><input type="number" min="0" value="0" class="qty" onchange="recalc()"></td><td class="col-tot">€ 0,00</td></tr>
           <tr data-unit="300" data-att="50"><td class="col-voce">Smartcross (Motore cross ERP)</td><td class="col-listino">€ 300,00</td><td class="col-promo"><input type="number" min="0" step="0.01" placeholder="promo" onchange="recalc()"></td><td class="col-listino">€ 50,00</td><td class="col-promo"><input type="number" min="0" step="0.01" class="att-promo" placeholder="promo" onchange="recalc()"></td><td class="col-qty"><input type="number" min="0" value="0" class="qty" onchange="recalc()"></td><td class="col-tot">€ 0,00</td></tr>
         </tbody>
-        <tfoot><tr class="totale-row"><td colspan="6">Subtotale Webservice</td><td class="col-tot" id="sub_ws">€ 0,00</td></tr></tfoot>
+        <tfoot>
+          <tr><td colspan="7" style="padding:6px 10px;"><label style="font-size:11px;color:var(--light-gray);">Note:</label> <input type="text" class="section-note" placeholder="Eventuali note per Webservice..." style="width:calc(100% - 50px);border:none;border-bottom:1px solid #e0e4e8;font-size:12px;padding:3px 4px;color:var(--body-gray);background:transparent;"></td></tr>
+          <tr class="totale-row"><td colspan="6">Subtotale Webservice</td><td class="col-tot" id="sub_ws">€ 0,00</td></tr>
+        </tfoot>
       </table>
     </div>
 
-    <div style="background:var(--dark-bg);border-radius:8px;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;margin-top:20px;">
-      <span style="color:white;font-size:18px;font-weight:700;">TOTALE ANNUALE (IVA esclusa)</span>
-      <span id="grand_total" style="color:var(--green);font-size:24px;font-weight:700;">€ 0,00</span>
+    <div style="background:linear-gradient(135deg,var(--dark-bg) 0%,#243347 100%);border-radius:10px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;margin-top:24px;box-shadow:0 4px 16px rgba(26,37,53,0.2);">
+      <span style="color:white;font-size:18px;font-weight:700;letter-spacing:0.3px;">TOTALE ANNUALE <span style="font-weight:400;font-size:13px;opacity:0.7;">(IVA esclusa)</span></span>
+      <span id="grand_total" style="color:var(--green);font-size:26px;font-weight:700;">€ 0,00</span>
     </div>
-    <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:12px;color:var(--light-gray);">
-      <span>di cui attivazione una tantum: <strong id="tot_att" style="color:var(--dark-bg)">€ 0,00</strong></span>
-      <span>Canone ricorrente: <strong id="tot_canone" style="color:var(--dark-bg)">€ 0,00</strong></span>
+    <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:12px;color:var(--light-gray);flex-wrap:wrap;gap:4px 16px;">
+      <span>Costi di attivazione una tantum: <strong id="tot_att" style="color:var(--dark-bg)">€ 0,00</strong></span>
+      <span>Costi canoni annuali: <strong id="tot_canone" style="color:var(--dark-bg)">€ 0,00</strong></span>
+      <span>Costi ricariche: <strong id="tot_ricariche" style="color:var(--dark-bg)">€ 0,00</strong> <em style="font-size:10px">(non ricorrenti, variabili su richiesta)</em></span>
+    </div>
+
+    <div style="margin-top:24px;">
+      <h3 style="font-size:14px;color:var(--dark-bg);font-weight:700;margin-bottom:12px;">Modalità di pagamento</h3>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:260px;border:1px solid #d0d8e0;border-radius:8px;padding:16px;background:var(--card-bg);">
+          <div style="font-size:13px;font-weight:700;color:var(--dark-bg);margin-bottom:8px;">Servizi e canoni annuali</div>
+          <div style="display:flex;gap:10px;margin-bottom:10px;">
+            <label style="font-size:12px;color:var(--body-gray);display:flex;align-items:center;gap:4px;cursor:pointer;">
+              <input type="radio" name="pag_servizi" value="bonifico" style="accent-color:var(--teal);"> Bonifico Bancario
+            </label>
+            <label style="font-size:12px;color:var(--body-gray);display:flex;align-items:center;gap:4px;cursor:pointer;">
+              <input type="radio" name="pag_servizi" value="riba" style="accent-color:var(--teal);"> Ri.Ba.
+            </label>
+          </div>
+          <input type="text" class="pag-note" placeholder="Note pagamento servizi..." style="width:100%;border:1px solid #d0d8e0;border-radius:4px;padding:6px 8px;font-size:12px;color:var(--body-gray);">
+        </div>
+        <div style="flex:1;min-width:260px;border:1px solid #d0d8e0;border-radius:8px;padding:16px;background:var(--card-bg);">
+          <div style="font-size:13px;font-weight:700;color:var(--dark-bg);margin-bottom:8px;">Ricariche (targhe / telai)</div>
+          <div style="display:flex;gap:10px;margin-bottom:10px;">
+            <label style="font-size:12px;color:var(--body-gray);display:flex;align-items:center;gap:4px;cursor:pointer;">
+              <input type="radio" name="pag_ricariche" value="bonifico" style="accent-color:var(--teal);"> Bonifico Bancario
+            </label>
+            <label style="font-size:12px;color:var(--body-gray);display:flex;align-items:center;gap:4px;cursor:pointer;">
+              <input type="radio" name="pag_ricariche" value="riba" style="accent-color:var(--teal);"> Ri.Ba.
+            </label>
+          </div>
+          <input type="text" class="pag-note" placeholder="Note pagamento ricariche..." style="width:100%;border:1px solid #d0d8e0;border-radius:4px;padding:6px 8px;font-size:12px;color:var(--body-gray);">
+        </div>
+      </div>
     </div>
 
     <div class="notes">
+      <strong>Natura del documento:</strong> La presente proposta economica ha carattere puramente indicativo e non costituisce né sostituisce il contratto di abbonamento ai servizi.<br>
       <strong>Configurazione Licenze:</strong> I servizi vengono configurati e tariffati su base utente e non a livello azienda.<br>
       <strong>Prezzi:</strong> Tutti gli importi indicati si intendono IVA esclusa.<br>
-      <strong>Riservatezza:</strong> Il presente documento e le informazioni in esso contenute sono strettamente riservate e destinate esclusivamente al destinatario indicato.
+      <strong>Condizioni:</strong> Maggiori dettagli sono disponibili nei contratti di abbonamento.<br>
+      <strong>Riservatezza:</strong> Le informazioni, i prezzi e le condizioni commerciali contenute nella presente proposta sono strettamente riservati e confidenziali. È fatto divieto di divulgare, copiare o distribuire il presente documento a terzi senza previa autorizzazione scritta.
     </div>
 
     <div class="actions">
       <button class="btn btn-secondary" onclick="resetForm()">Azzera</button>
       <button class="btn btn-primary" onclick="window.print()">Stampa / PDF</button>
     </div>
-    <div class="validity">La presente proposta è valida per <span id="validity_text">30</span> giorni dalla data indicata.</div>
+    <div class="validity">La presente proposta è valida per <span id="validity_text">15</span> giorni dalla data indicata.</div>
   </div>
 
   <div class="footer">
     <span><strong>ENGINET s.r.l.</strong></span>
-    <span>www.anypro.it</span>
     <span>+39 090 397 3234</span>
-    <span>anypro@enginet.biz</span>
+    <span>amministrazione@enginet.biz</span>
   </div>
 </div>
 
@@ -391,7 +437,9 @@ function updateProvince() {
 }
 
 function fmt(n) {
-  return '€ ' + n.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+  const parts = n.toFixed(2).split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return '€ ' + parts[0] + ',' + parts[1];
 }
 
 function toggleSection(id, on) {
@@ -430,8 +478,20 @@ function getPrice(row) {
 function recalc() {
   const hideEmpty = document.getElementById('hide_empty').checked;
   let subCat=0, subPro=0, subMod=0, subWsAtt=0, subWsCanone=0;
+  let totRicariche = 0;
 
-  // Generic row calc
+  // Helper: somma ricariche di un tbody (per sottrarre se sezione off)
+  function calcRicariche(tbodyId) {
+    let r = 0;
+    document.querySelectorAll('#'+tbodyId+' tr[data-ricarica="1"]').forEach(row => {
+      const qty = parseInt(row.querySelector('.qty')?.value || 0) || 0;
+      const price = qty > 0 ? getPrice(row) : 0;
+      r += qty * price;
+    });
+    return r;
+  }
+
+  // Generic row calc — separa ricariche (targhe/telai) dai canoni
   function calcRows(tbodyId) {
     let sub = 0;
     document.querySelectorAll('#'+tbodyId+' tr').forEach(row => {
@@ -442,6 +502,9 @@ function recalc() {
       const totCell = row.querySelector('.col-tot');
       if (totCell) totCell.textContent = fmt(total);
       row.classList.toggle('row-hidden-print', hideEmpty && qty === 0);
+      if (row.dataset.ricarica === '1') {
+        totRicariche += total;
+      }
       sub += total;
     });
     return sub;
@@ -501,16 +564,18 @@ function recalc() {
   });
   document.getElementById('sub_ws').textContent = fmt(subWs);
 
-  if (!catOn) subCat = 0;
-  if (!proOn) subPro = 0;
+  if (!catOn) { totRicariche -= calcRicariche('tbody_anycat'); subCat = 0; }
+  if (!proOn) { totRicariche -= calcRicariche('tbody_anypro'); subPro = 0; }
   if (!modOn) subMod = 0;
   if (!wsOn) { subWsAtt = 0; subWsCanone2 = 0; subWs = 0; }
 
-  const totalCanone = subCat + subPro + subMod + subWsCanone2;
+  // Canoni = totale sezioni - ricariche
+  const totalCanone = (subCat + subPro + subMod + subWsCanone2) - totRicariche;
   const totalAtt = subWsAtt;
-  document.getElementById('grand_total').textContent = fmt(totalCanone + totalAtt);
+  document.getElementById('grand_total').textContent = fmt(totalCanone + totalAtt + totRicariche);
   document.getElementById('tot_att').textContent = fmt(totalAtt);
   document.getElementById('tot_canone').textContent = fmt(totalCanone);
+  document.getElementById('tot_ricariche').textContent = fmt(totRicariche);
 
   const days = parseInt(document.getElementById('validita').value) || 30;
   document.getElementById('validity_text').textContent = days;
@@ -522,7 +587,9 @@ function resetForm() {
   document.querySelectorAll('input[type="text"],input[type="email"],input[type="date"]').forEach(i => i.value='');
   document.querySelectorAll('select').forEach(s => s.selectedIndex=0);
   document.querySelectorAll('.att-promo').forEach(i => i.value='');
-  document.getElementById('validita').value = 30;
+  document.querySelectorAll('.section-note,.pag-note').forEach(i => i.value='');
+  document.querySelectorAll('input[type="radio"]').forEach(r => r.checked=false);
+  document.getElementById('validita').value = 15;
   // Disable all sections
   ['sec_anycat','sec_anypro','sec_moduli','sec_ws'].forEach(id => {
     toggleSection(id, false);
