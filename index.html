@@ -25,13 +25,13 @@
   h1 { font-size:26px; color:var(--dark-bg); font-weight:700; margin-bottom:6px; }
   .accent-line { width:60px; height:3px; background:var(--green); margin-bottom:24px; }
 
-  .client-section { margin-bottom:28px; }
-  .client-section h2 { font-size:15px; color:var(--dark-bg); font-weight:700; margin-bottom:12px; }
-  .field-row { display:flex; gap:16px; margin-bottom:10px; flex-wrap:wrap; }
-  .field { flex:1; min-width:180px; }
-  .field label { display:block; font-size:11px; font-weight:600; color:var(--light-gray); text-transform:uppercase; letter-spacing:0.3px; margin-bottom:3px; }
+  .client-section { margin-bottom:20px; }
+  .client-section h2 { font-size:14px; color:var(--dark-bg); font-weight:700; margin-bottom:8px; }
+  .field-row { display:flex; gap:10px; margin-bottom:6px; flex-wrap:wrap; }
+  .field { flex:1; min-width:120px; }
+  .field label { display:block; font-size:10px; font-weight:600; color:var(--light-gray); text-transform:uppercase; letter-spacing:0.3px; margin-bottom:2px; }
   .field label .req { color:#e04040; }
-  .field input,.field select { width:100%; padding:8px 10px; border:1px solid #d0d8e0; border-radius:5px; font-size:14px; color:var(--dark-bg); background:var(--white); }
+  .field input,.field select { width:100%; padding:5px 8px; border:1px solid #d0d8e0; border-radius:4px; font-size:13px; color:var(--dark-bg); background:var(--white); }
   .field input:focus,.field select:focus { outline:none; border-color:var(--teal); box-shadow:0 0 0 2px rgba(2,128,144,0.12); }
 
   .price-section { margin-bottom:28px; border-left:3px solid #d0d8e0; padding-left:16px; transition:border-color 0.3s; }
@@ -108,7 +108,7 @@
   @media (max-width:600px) {
     .content { padding:20px 16px; }
     .header,.footer { padding:10px 16px; }
-    .field-row { flex-direction:column; gap:8px; }
+    .field-row { flex-direction:column; gap:6px; }
     .field { min-width:100%; }
   }
   #lock-screen { position:fixed; inset:0; z-index:9999; background:linear-gradient(135deg,var(--dark-bg) 0%,#0d1a28 100%); display:flex; align-items:center; justify-content:center; }
@@ -149,25 +149,24 @@
       <div class="field-row">
         <div class="field" style="flex:2"><label>Ragione Sociale <span class="req">*</span></label><input type="text" id="ragione" placeholder="Inserire ragione sociale" required></div>
         <div class="field"><label>P.IVA</label><input type="text" id="piva" placeholder="IT00000000000"></div>
+        <div class="field"><label>Referente</label><input type="text" id="referente" placeholder="Nome e cognome"></div>
       </div>
       <div class="field-row">
-        <div class="field"><label>Indirizzo</label><input type="text" id="indirizzo" placeholder="Via/Piazza..."></div>
-        <div class="field" style="flex:0.5"><label>CAP</label><input type="text" id="cap" placeholder="00000"></div>
+        <div class="field" style="flex:2"><label>Indirizzo</label><input type="text" id="indirizzo" placeholder="Via/Piazza..."></div>
+        <div class="field" style="flex:0.4"><label>CAP</label><input type="text" id="cap" placeholder="00000"></div>
+        <div class="field"><label>Località <span class="req">*</span></label><input type="text" id="localita" placeholder="Città" required></div>
       </div>
       <div class="field-row">
         <div class="field"><label>Regione</label><select id="regione" onchange="updateProvince()"><option value="">— selezionare —</option></select></div>
         <div class="field"><label>Provincia</label><select id="provincia" disabled><option value="">— prima seleziona regione —</option></select></div>
-        <div class="field"><label>Località <span class="req">*</span></label><input type="text" id="localita" placeholder="Città" required></div>
-      </div>
-      <div class="field-row">
-        <div class="field"><label>Referente</label><input type="text" id="referente" placeholder="Nome e cognome"></div>
         <div class="field"><label>Email</label><input type="email" id="email_cliente" placeholder="email@esempio.it"></div>
         <div class="field"><label>Telefono</label><input type="text" id="tel_cliente" placeholder="+39..."></div>
       </div>
       <div class="field-row">
-        <div class="field"><label>Data proposta</label><input type="date" id="data_proposta"></div>
-        <div class="field"><label>Validità (giorni)</label><input type="number" id="validita" value="15" min="1"></div>
-        <div class="field"><label>N. Proposta</label><input type="text" id="n_proposta" placeholder="2026/001"></div>
+        <div class="field" style="flex:0.6"><label>Data proposta</label><input type="date" id="data_proposta"></div>
+        <div class="field" style="flex:0.4"><label>Validità (gg)</label><input type="number" id="validita" value="15" min="1"></div>
+        <div class="field" style="flex:0.5"><label>N. Proposta</label><input type="text" id="n_proposta" placeholder="2026/001"></div>
+        <div class="field" style="flex:1"></div>
       </div>
     </div>
 
@@ -320,13 +319,13 @@
     </div>
 
     <div style="background:linear-gradient(135deg,var(--dark-bg) 0%,#243347 100%);border-radius:10px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;margin-top:24px;box-shadow:0 4px 16px rgba(26,37,53,0.2);">
-      <span style="color:white;font-size:18px;font-weight:700;letter-spacing:0.3px;">TOTALE ANNUALE <span style="font-weight:400;font-size:13px;opacity:0.7;">(IVA esclusa)</span></span>
+      <span style="color:white;font-size:18px;font-weight:700;letter-spacing:0.3px;">TOTALE GENERALE <span style="font-weight:400;font-size:13px;opacity:0.7;">(IVA esclusa)</span></span>
       <span id="grand_total" style="color:var(--green);font-size:26px;font-weight:700;">€ 0,00</span>
     </div>
-    <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:12px;color:var(--light-gray);flex-wrap:wrap;gap:4px 16px;">
-      <span>Costi di attivazione una tantum: <strong id="tot_att" style="color:var(--dark-bg)">€ 0,00</strong></span>
-      <span>Costi canoni annuali: <strong id="tot_canone" style="color:var(--dark-bg)">€ 0,00</strong></span>
-      <span>Costi ricariche: <strong id="tot_ricariche" style="color:var(--dark-bg)">€ 0,00</strong> <em style="font-size:10px">(non ricorrenti, variabili su richiesta)</em></span>
+    <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:13px;color:var(--body-gray);flex-wrap:wrap;gap:6px 20px;padding:10px 16px;background:var(--card-bg);border-radius:6px;border:1px solid #d0d8e0;">
+      <span>Costi di attivazione una tantum: <strong id="tot_att" style="color:var(--dark-bg);font-size:14px;">€ 0,00</strong></span>
+      <span>Costi canoni annuali: <strong id="tot_canone" style="color:var(--dark-bg);font-size:14px;">€ 0,00</strong></span>
+      <span>Costi ricariche: <strong id="tot_ricariche" style="color:var(--dark-bg);font-size:14px;">€ 0,00</strong> <em style="font-size:11px;color:var(--light-gray);">(non ricorrenti, variabili su richiesta)</em></span>
     </div>
 
     <div style="margin-top:24px;">
