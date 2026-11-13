@@ -246,14 +246,14 @@
         <thead><tr><th class="col-voce">Voce</th><th class="th-listino col-listino">Listino</th><th>Promo €</th><th>Qtà</th><th style="text-align:right">Totale</th></tr></thead>
         <tbody id="tbody_anycat">
           <tr data-unit="174" data-tiers="1:174|2-4:164|5-9:158|10+:trattativa">
-            <td class="col-voce">Utenza ANYcat<div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">scaglioni ▾</button><div class="tier-detail">1 → €174 · 2-4 → €164 · 5-9 → €158 · 10+ → trattativa</div></div></td>
+            <td class="col-voce">Utenza ANYcat<div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">scaglioni ▾</button><div class="tier-detail">1 → € 174,00 · 2-4 → € 164,00 · 5-9 → € 158,00 · 10+ → trattativa</div></div></td>
             <td class="col-listino">€ 174,00</td>
             <td class="col-promo"><input type="number" min="0" step="0.01" placeholder="promo" onchange="recalc()"></td>
             <td class="col-qty"><input type="number" min="0" value="0" class="qty" onchange="recalc()"></td>
             <td class="col-tot">€ 0,00</td>
           </tr>
           <tr data-unit="101" data-tiers="1:101|2-4:100|5-9:89|10+:trattativa">
-            <td class="col-voce">Modulo ANYweb<div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">scaglioni ▾</button><div class="tier-detail">1 → €101 · 2-4 → €100 · 5-9 → €89 · 10+ → trattativa</div></div></td>
+            <td class="col-voce">Modulo ANYweb<div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">scaglioni ▾</button><div class="tier-detail">1 → € 101,00 · 2-4 → € 100,00 · 5-9 → € 89,00 · 10+ → trattativa</div></div></td>
             <td class="col-listino">€ 101,00</td>
             <td class="col-promo"><input type="number" min="0" step="0.01" placeholder="promo" onchange="recalc()"></td>
             <td class="col-qty"><input type="number" min="0" value="0" class="qty" onchange="recalc()"></td>
@@ -299,7 +299,7 @@
                 <option value="plus">Plus</option>
                 <option value="premium">Premium</option>
               </select>
-              <div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">versione / scaglioni ▾</button><div class="tier-detail" id="anypro-tier-detail">Basic: 1→€159 · 2-4→€149 · 5-9→€139</div></div>
+              <div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">versione / scaglioni ▾</button><div class="tier-detail" id="anypro-tier-detail">Basic: 1 → € 159,00 · 2-4 → € 149,00 · 5-9 → € 139,00</div></div>
             </td>
             <td class="col-listino anypro-listino">€ 159,00</td>
             <td class="col-promo"><input type="number" min="0" step="0.01" placeholder="promo" onchange="recalc()"></td>
@@ -510,9 +510,9 @@ function toggleSection(id, on) {
 }
 
 const ANYPRO_PLANS = {
-  basic:   { unit: 159, tiers: '1→€159 · 2-4→€149 · 5-9→€139' },
-  plus:    { unit: 199, tiers: '1→€199 · 2-4→€179 · 5-9→€159' },
-  premium: { unit: 279, tiers: '1→€279 · 2-4→€259 · 5-9→€229' }
+  basic:   { unit: 159, tiers: '1 → € 159,00 · 2-4 → € 149,00 · 5-9 → € 139,00' },
+  plus:    { unit: 199, tiers: '1 → € 199,00 · 2-4 → € 179,00 · 5-9 → € 159,00' },
+  premium: { unit: 279, tiers: '1 → € 279,00 · 2-4 → € 259,00 · 5-9 → € 229,00' }
 };
 
 function updateAnypro(sel) {
