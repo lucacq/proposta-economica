@@ -25,7 +25,7 @@
   h1 { font-size:26px; color:var(--dark-bg); font-weight:700; margin-bottom:6px; }
   .accent-line { width:60px; height:3px; background:var(--green); margin-bottom:24px; }
 
-  .client-section { margin-bottom:20px; }
+  .client-section { margin-bottom:20px; background:var(--card-bg); border:1px solid #d0d8e0; border-radius:8px; padding:14px 18px; }
   .client-section h2 { font-size:14px; color:var(--dark-bg); font-weight:700; margin-bottom:8px; }
   .field-row { display:flex; gap:10px; margin-bottom:6px; flex-wrap:wrap; }
   .field { flex:1; min-width:120px; }
@@ -111,6 +111,43 @@
     .field-row { flex-direction:column; gap:6px; }
     .field { min-width:100%; }
   }
+  /* Repository panel */
+  .repo-bar { background:var(--card-bg); border-radius:6px; padding:10px 16px; margin-bottom:16px; border:1px solid #d0d8e0; }
+  .repo-bar summary { font-size:13px; font-weight:700; color:var(--dark-bg); cursor:pointer; list-style:none; display:flex; align-items:center; gap:8px; }
+  .repo-bar summary::-webkit-details-marker { display:none; }
+  .repo-bar summary::before { content:'▶'; font-size:9px; color:var(--teal); transition:transform 0.2s; display:inline-block; }
+  .repo-bar[open] summary::before { transform:rotate(90deg); }
+  .repo-cfg { margin-top:10px; display:flex; gap:8px; align-items:flex-end; flex-wrap:wrap; }
+  .repo-cfg label { font-size:10px; font-weight:600; color:var(--light-gray); text-transform:uppercase; display:block; margin-bottom:2px; }
+  .repo-cfg input { padding:5px 8px; border:1px solid #d0d8e0; border-radius:4px; font-size:12px; color:var(--dark-bg); }
+  .repo-cfg button { padding:5px 14px; border:none; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer; background:var(--teal); color:white; }
+  .repo-cfg button:hover { background:#026e7a; }
+  .repo-list { margin-top:12px; max-height:220px; overflow-y:auto; }
+  .repo-item { display:flex; align-items:center; justify-content:space-between; padding:7px 10px; border-bottom:1px solid #edf0f3; font-size:12px; cursor:pointer; transition:background 0.15s; gap:8px; }
+  .repo-item:hover { background:#e8f4f8; }
+  .repo-item .ri-info { flex:1; min-width:0; }
+  .repo-item .ri-name { font-weight:600; color:var(--dark-bg); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .repo-item .ri-meta { font-size:10px; color:var(--light-gray); }
+  .repo-item .ri-badge { font-size:9px; padding:2px 6px; border-radius:10px; font-weight:600; white-space:nowrap; }
+  .ri-badge.sent { background:#d4ebe5; color:#0a6e50; }
+  .ri-badge.draft { background:#fff3cd; color:#856404; }
+  .repo-item .ri-actions { display:flex; gap:4px; }
+  .repo-item .ri-actions button { padding:3px 8px; border:none; border-radius:3px; font-size:10px; cursor:pointer; background:#e0e6ec; color:var(--dark-bg); }
+  .repo-item .ri-actions button:hover { background:var(--teal); color:white; }
+  .repo-item .ri-actions button.ri-del { color:#c0392b; }
+  .repo-item .ri-actions button.ri-del:hover { background:#c0392b; color:white; }
+  .repo-status { font-size:11px; color:var(--light-gray); margin-top:6px; font-style:italic; min-height:16px; }
+  .repo-version-banner { background:linear-gradient(90deg,#fff3cd 0%,#ffeeba 100%); border:1px solid #f5c518; border-radius:6px; padding:8px 14px; margin-bottom:12px; font-size:12px; color:#856404; display:none; }
+  .repo-version-banner strong { color:#664d03; }
+  .repo-save-row { display:flex; gap:6px; margin-top:10px; align-items:center; flex-wrap:wrap; }
+  .repo-save-row button { padding:5px 14px; border:none; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer; }
+  .repo-save-row .btn-save { background:var(--green); color:white; }
+  .repo-save-row .btn-save:hover { background:#02a880; }
+  .repo-save-row .btn-mark-sent { background:#3498db; color:white; }
+  .repo-save-row .btn-mark-sent:hover { background:#2980b9; }
+  .repo-save-row select { padding:4px 8px; font-size:12px; border:1px solid #d0d8e0; border-radius:4px; }
+  @media print { .repo-bar,.repo-version-banner { display:none!important; } }
+
   #lock-screen { position:fixed; inset:0; z-index:9999; background:linear-gradient(135deg,var(--dark-bg) 0%,#0d1a28 100%); display:flex; align-items:center; justify-content:center; }
   #lock-screen .lock-box { background:var(--white); border-radius:16px; padding:44px 40px; text-align:center; max-width:380px; width:90%; box-shadow:0 16px 48px rgba(0,0,0,0.4); }
   #lock-screen .lock-box img { height:32px; margin-bottom:16px; }
@@ -178,6 +215,25 @@
       <label><input type="checkbox" id="inc_ws" onchange="toggleSection('sec_ws',this.checked)"> Webservice</label>
       <span style="margin-left:auto"><label><input type="checkbox" id="hide_empty" checked onchange="recalc()"> Nascondi righe vuote in stampa</label></span>
     </div>
+
+    <div class="repo-version-banner" id="repo_version_banner">
+      <strong>⚠ Revisione</strong> — Esiste una versione precedente di questa proposta, inviata il <span id="repo_first_sent"></span>. Versione attuale: <strong>#<span id="repo_ver_num">1</span></strong>
+    </div>
+
+    <details class="repo-bar">
+      <summary>Archivio Proposte</summary>
+      <div class="repo-cfg">
+        <div><label>GitHub Token (PAT)</label><input type="password" id="gh_token" style="width:220px;" placeholder="ghp_xxxx..."></div>
+        <div><label>Repo (owner/repo)</label><input type="text" id="gh_repo" style="width:180px;" placeholder="lucacq/proposta-economica"></div>
+        <button onclick="repoConnect()">Connetti</button>
+      </div>
+      <div class="repo-save-row">
+        <button class="btn-save" onclick="repoSave()">💾 Salva proposta</button>
+        <button class="btn-mark-sent" onclick="repoMarkSent()">✉ Segna come inviata</button>
+      </div>
+      <div class="repo-list" id="repo_list"></div>
+      <div class="repo-status" id="repo_status"></div>
+    </details>
 
     <!-- ANYcat -->
     <div class="price-section section-excluded" id="sec_anycat">
@@ -598,6 +654,7 @@ function recalc() {
 }
 
 function resetForm() {
+  if (!confirm('Azzerare tutti i campi della proposta?')) return;
   document.querySelectorAll('input[type="number"]').forEach(i => { if(i.id!=='validita') i.value=''; });
   document.querySelectorAll('.qty').forEach(i => i.value = '0');
   document.querySelectorAll('input[type="text"],input[type="email"],input[type="date"]').forEach(i => i.value='');
@@ -635,6 +692,287 @@ async function unlock() {
   }
 }
 
+/* ===== REPOSITORY PROPOSTE (GitHub) ===== */
+const REPO_DIR = 'proposte';
+let ghToken = '', ghRepo = '';
+let currentPropostaId = null; // id file attualmente caricato
+
+function repoStatus(msg) { document.getElementById('repo_status').textContent = msg; }
+
+function repoConnect() {
+  ghToken = document.getElementById('gh_token').value.trim();
+  ghRepo = document.getElementById('gh_repo').value.trim();
+  if (!ghToken || !ghRepo) { repoStatus('Inserire token e repo.'); return; }
+  try { localStorage.setItem('pe_gh_token', ghToken); localStorage.setItem('pe_gh_repo', ghRepo); } catch(e) {}
+  repoLoadList();
+}
+
+function ghHeaders() {
+  return { 'Authorization': 'token ' + ghToken, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' };
+}
+
+async function ghGet(path) {
+  const r = await fetch('https://api.github.com/repos/' + ghRepo + '/contents/' + path, { headers: ghHeaders() });
+  if (r.status === 404) return null;
+  if (!r.ok) throw new Error('GitHub API: ' + r.status);
+  return r.json();
+}
+
+async function ghPut(path, content, sha) {
+  const body = { message: 'Proposta: ' + path, content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))), branch: 'main' };
+  if (sha) body.sha = sha;
+  const r = await fetch('https://api.github.com/repos/' + ghRepo + '/contents/' + path, { method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body) });
+  if (!r.ok) { const e = await r.json(); throw new Error(e.message || r.status); }
+  return r.json();
+}
+
+async function ghDelete(path, sha) {
+  const body = { message: 'Elimina proposta: ' + path, sha, branch: 'main' };
+  const r = await fetch('https://api.github.com/repos/' + ghRepo + '/contents/' + path, { method: 'DELETE', headers: ghHeaders(), body: JSON.stringify(body) });
+  if (!r.ok) throw new Error('Errore eliminazione');
+}
+
+function collectFormData() {
+  const data = {};
+  // Campi testo
+  ['ragione','piva','referente','indirizzo','cap','localita','email_cliente','tel_cliente','data_proposta','validita','n_proposta'].forEach(id => {
+    data[id] = document.getElementById(id)?.value || '';
+  });
+  data.regione = document.getElementById('regione')?.value || '';
+  data.provincia = document.getElementById('provincia')?.value || '';
+  // Sezioni attive
+  data.sections = {};
+  ['anycat','anypro','moduli','ws'].forEach(s => {
+    data.sections[s] = document.getElementById('inc_' + s)?.checked || false;
+  });
+  // ANYpro plan
+  const planSel = document.getElementById('anypro_plan');
+  data.anypro_plan = planSel ? planSel.value : '';
+  // Quantità e promo per ogni riga
+  data.rows = {};
+  document.querySelectorAll('tbody tr[id]').forEach(row => {
+    const qty = row.querySelector('.qty');
+    const promo = row.querySelector('.col-promo input');
+    const attPromo = row.querySelector('.att-promo');
+    if (qty) {
+      data.rows[row.id] = { qty: qty.value };
+      if (promo) data.rows[row.id].promo = promo.value;
+      if (attPromo) data.rows[row.id].attPromo = attPromo.value;
+    }
+  });
+  // Note sezione
+  data.sectionNotes = {};
+  document.querySelectorAll('.section-note').forEach(n => {
+    if (n.closest('tfoot')?.closest('.price-section')?.id) {
+      data.sectionNotes[n.closest('.price-section').id] = n.value;
+    }
+  });
+  // Pagamento
+  data.pag_servizi = document.querySelector('input[name="pag_servizi"]:checked')?.value || '';
+  data.pag_ricariche = document.querySelector('input[name="pag_ricariche"]:checked')?.value || '';
+  data.pag_note = {};
+  document.querySelectorAll('.pag-note').forEach((n, i) => { data.pag_note[i] = n.value; });
+  data.hide_empty = document.getElementById('hide_empty')?.checked || false;
+  return data;
+}
+
+function restoreFormData(data) {
+  ['ragione','piva','referente','indirizzo','cap','localita','email_cliente','tel_cliente','data_proposta','validita','n_proposta'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && data[id] !== undefined) el.value = data[id];
+  });
+  if (data.regione) {
+    document.getElementById('regione').value = data.regione;
+    updateProvince();
+    if (data.provincia) document.getElementById('provincia').value = data.provincia;
+  }
+  // Sezioni
+  if (data.sections) {
+    Object.entries(data.sections).forEach(([s, on]) => {
+      const cb = document.getElementById('inc_' + s);
+      if (cb) { cb.checked = on; toggleSection('sec_' + s, on); }
+    });
+  }
+  // ANYpro plan
+  if (data.anypro_plan) {
+    const ps = document.getElementById('anypro_plan');
+    if (ps) { ps.value = data.anypro_plan; ps.dispatchEvent(new Event('change')); }
+  }
+  // Righe
+  if (data.rows) {
+    Object.entries(data.rows).forEach(([rowId, vals]) => {
+      const row = document.getElementById(rowId);
+      if (!row) return;
+      const qty = row.querySelector('.qty');
+      const promo = row.querySelector('.col-promo input');
+      const attPromo = row.querySelector('.att-promo');
+      if (qty && vals.qty) qty.value = vals.qty;
+      if (promo && vals.promo) promo.value = vals.promo;
+      if (attPromo && vals.attPromo) attPromo.value = vals.attPromo;
+    });
+  }
+  // Note sezione
+  if (data.sectionNotes) {
+    Object.entries(data.sectionNotes).forEach(([secId, val]) => {
+      const sec = document.getElementById(secId);
+      if (sec) { const n = sec.querySelector('.section-note'); if (n) n.value = val; }
+    });
+  }
+  // Pagamento
+  if (data.pag_servizi) {
+    const r = document.querySelector('input[name="pag_servizi"][value="'+data.pag_servizi+'"]');
+    if (r) r.checked = true;
+  }
+  if (data.pag_ricariche) {
+    const r = document.querySelector('input[name="pag_ricariche"][value="'+data.pag_ricariche+'"]');
+    if (r) r.checked = true;
+  }
+  if (data.pag_note) {
+    document.querySelectorAll('.pag-note').forEach((n, i) => { if (data.pag_note[i]) n.value = data.pag_note[i]; });
+  }
+  if (data.hide_empty !== undefined) document.getElementById('hide_empty').checked = data.hide_empty;
+  recalc();
+}
+
+function propostaFileName(data) {
+  const nome = (data.ragione || 'senza-nome').replace(/[^a-zA-Z0-9À-ÿ\s-]/g,'').trim().replace(/\s+/g, '_').substring(0, 40);
+  const num = (data.n_proposta || '').replace(/[^a-zA-Z0-9_-]/g, '_') || 'bozza';
+  return REPO_DIR + '/' + num + '__' + nome + '.json';
+}
+
+async function repoSave() {
+  if (!ghToken || !ghRepo) { repoStatus('Connettere prima il repository GitHub.'); return; }
+  const formData = collectFormData();
+  const fileName = propostaFileName(formData);
+  repoStatus('Salvataggio in corso...');
+  try {
+    // Check if file exists (get sha)
+    const existing = await ghGet(fileName);
+    let meta = { version: 1, createdAt: new Date().toISOString(), sentAt: null, history: [] };
+    let sha = null;
+    if (existing) {
+      const old = JSON.parse(decodeURIComponent(escape(atob(existing.content))));
+      meta = old._meta || meta;
+      meta.history.push({ savedAt: meta.lastSavedAt || meta.createdAt, version: meta.version });
+      meta.version++;
+      sha = existing.sha;
+    }
+    meta.lastSavedAt = new Date().toISOString();
+    const payload = { ...formData, _meta: meta };
+    await ghPut(fileName, payload, sha);
+    currentPropostaId = fileName;
+    updateVersionBanner(meta);
+    repoStatus('Proposta salvata — v' + meta.version + (meta.sentAt ? ' (già inviata il ' + new Date(meta.sentAt).toLocaleDateString('it-IT') + ')' : ''));
+    repoLoadList();
+  } catch(e) {
+    repoStatus('Errore: ' + e.message);
+  }
+}
+
+async function repoMarkSent() {
+  if (!ghToken || !ghRepo) { repoStatus('Connettere prima il repository.'); return; }
+  if (!currentPropostaId) { repoStatus('Salvare prima la proposta.'); return; }
+  repoStatus('Aggiornamento stato...');
+  try {
+    const existing = await ghGet(currentPropostaId);
+    if (!existing) { repoStatus('File non trovato. Salvare prima.'); return; }
+    const data = JSON.parse(decodeURIComponent(escape(atob(existing.content))));
+    if (!data._meta) data._meta = {};
+    if (!data._meta.sentAt) {
+      data._meta.sentAt = new Date().toISOString();
+      data._meta.firstSentAt = data._meta.sentAt;
+    }
+    data._meta.lastSentAt = new Date().toISOString();
+    await ghPut(currentPropostaId, data, existing.sha);
+    updateVersionBanner(data._meta);
+    repoStatus('Proposta segnata come inviata il ' + new Date(data._meta.lastSentAt).toLocaleDateString('it-IT'));
+    repoLoadList();
+  } catch(e) {
+    repoStatus('Errore: ' + e.message);
+  }
+}
+
+async function repoLoad(path) {
+  if (!ghToken || !ghRepo) return;
+  repoStatus('Caricamento...');
+  try {
+    const file = await ghGet(path);
+    if (!file) { repoStatus('File non trovato.'); return; }
+    const data = JSON.parse(decodeURIComponent(escape(atob(file.content))));
+    const meta = data._meta || {};
+    delete data._meta;
+    restoreFormData(data);
+    currentPropostaId = path;
+    updateVersionBanner(meta);
+    repoStatus('Proposta caricata — v' + (meta.version || 1));
+  } catch(e) {
+    repoStatus('Errore: ' + e.message);
+  }
+}
+
+async function repoDelete(path) {
+  if (!confirm('Eliminare definitivamente questa proposta dall\'archivio?')) return;
+  repoStatus('Eliminazione...');
+  try {
+    const file = await ghGet(path);
+    if (file) await ghDelete(path, file.sha);
+    if (currentPropostaId === path) { currentPropostaId = null; document.getElementById('repo_version_banner').style.display = 'none'; }
+    repoStatus('Proposta eliminata.');
+    repoLoadList();
+  } catch(e) {
+    repoStatus('Errore: ' + e.message);
+  }
+}
+
+function updateVersionBanner(meta) {
+  const banner = document.getElementById('repo_version_banner');
+  if (meta && meta.version > 1 && meta.sentAt) {
+    document.getElementById('repo_first_sent').textContent = new Date(meta.firstSentAt || meta.sentAt).toLocaleDateString('it-IT');
+    document.getElementById('repo_ver_num').textContent = meta.version;
+    banner.style.display = 'block';
+  } else {
+    banner.style.display = 'none';
+  }
+}
+
+async function repoLoadList() {
+  const listEl = document.getElementById('repo_list');
+  if (!ghToken || !ghRepo) { listEl.innerHTML = ''; return; }
+  try {
+    const items = await ghGet(REPO_DIR);
+    if (!items || !Array.isArray(items)) { listEl.innerHTML = '<div style="padding:8px;font-size:11px;color:var(--light-gray);">Nessuna proposta salvata.</div>'; return; }
+    // Fetch each file to get metadata
+    let html = '';
+    for (const item of items) {
+      if (!item.name.endsWith('.json')) continue;
+      let meta = {}, ragione = item.name.replace('.json','');
+      try {
+        const file = await ghGet(item.path);
+        if (file) {
+          const d = JSON.parse(decodeURIComponent(escape(atob(file.content))));
+          meta = d._meta || {};
+          ragione = d.ragione || ragione;
+        }
+      } catch(e) {}
+      const isSent = !!meta.sentAt;
+      const badgeClass = isSent ? 'sent' : 'draft';
+      const badgeText = isSent ? 'Inviata' : 'Bozza';
+      const dateStr = meta.lastSavedAt ? new Date(meta.lastSavedAt).toLocaleDateString('it-IT') : '';
+      const verStr = meta.version ? 'v' + meta.version : '';
+      html += '<div class="repo-item" onclick="repoLoad(\'' + item.path.replace(/'/g,"\\'") + '\')">';
+      html += '<div class="ri-info"><div class="ri-name">' + ragione + '</div>';
+      html += '<div class="ri-meta">' + verStr + (dateStr ? ' · ' + dateStr : '') + '</div></div>';
+      html += '<span class="ri-badge ' + badgeClass + '">' + badgeText + '</span>';
+      html += '<div class="ri-actions" onclick="event.stopPropagation()">';
+      html += '<button class="ri-del" onclick="repoDelete(\'' + item.path.replace(/'/g,"\\'") + '\')">✕</button>';
+      html += '</div></div>';
+    }
+    listEl.innerHTML = html || '<div style="padding:8px;font-size:11px;color:var(--light-gray);">Nessuna proposta salvata.</div>';
+  } catch(e) {
+    listEl.innerHTML = '<div style="padding:8px;font-size:11px;color:#c0392b;">Errore: ' + e.message + '</div>';
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   try {
     if (sessionStorage.getItem('pe_auth') === '1') {
@@ -643,6 +981,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   } catch(e) {}
   document.getElementById('lock-pwd')?.focus();
+  // Restore GitHub config
+  try {
+    const t = localStorage.getItem('pe_gh_token');
+    const r = localStorage.getItem('pe_gh_repo');
+    if (t && r) {
+      ghToken = t; ghRepo = r;
+      document.getElementById('gh_token').value = t;
+      document.getElementById('gh_repo').value = r;
+      repoLoadList();
+    }
+  } catch(e) {}
   initRegioni();
   document.getElementById('data_proposta').value = new Date().toISOString().split('T')[0];
   recalc();
