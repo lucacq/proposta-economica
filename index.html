@@ -223,7 +223,7 @@
     <details class="repo-bar">
       <summary>Archivio Proposte</summary>
       <div class="repo-cfg">
-        <div><label>GitHub Token (PAT)</label><input type="password" id="gh_token" style="width:220px;" placeholder="ghp_xxxx..."></div>
+        <div><label>GitHub Token (PAT)</label><div style="display:flex;gap:0;"><input type="password" id="gh_token" style="width:200px;border-radius:4px 0 0 4px;" placeholder="ghp_xxxx..."><button type="button" onclick="const i=document.getElementById('gh_token');const t=i.type==='password'?'text':'password';i.type=t;this.textContent=t==='password'?'👁':'🙈';" style="padding:4px 8px;border:1px solid #d0d8e0;border-left:none;border-radius:0 4px 4px 0;background:var(--card-bg);cursor:pointer;font-size:13px;">👁</button></div></div>
         <div><label>Repo (owner/repo)</label><input type="text" id="gh_repo" style="width:180px;" placeholder="lucacq/proposta-economica"></div>
         <button onclick="repoConnect()">Connetti</button>
       </div>
@@ -992,6 +992,13 @@ document.addEventListener('DOMContentLoaded', () => {
       repoLoadList();
     }
   } catch(e) {}
+  // Auto-format promo inputs to 2 decimals on blur
+  document.querySelectorAll('.col-promo input, .att-promo').forEach(inp => {
+    inp.addEventListener('blur', function() {
+      const v = parseFloat(this.value);
+      if (!isNaN(v) && v > 0) this.value = v.toFixed(2);
+    });
+  });
   initRegioni();
   document.getElementById('data_proposta').value = new Date().toISOString().split('T')[0];
   recalc();
