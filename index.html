@@ -167,7 +167,7 @@
   <div class="lock-box">
     <h2>Area Riservata</h2>
     <p>Inserire il codice di accesso per visualizzare la proposta economica</p>
-    <input type="text" id="lock-pwd" maxlength="6" placeholder="______" autocomplete="off" onkeydown="if(event.key==='Enter')unlock()">
+    <input type="password" id="lock-pwd" maxlength="6" placeholder="······" autocomplete="off" onkeydown="if(event.key==='Enter')unlock()">
     <button class="lock-btn" onclick="unlock()">Accedi</button>
     <div class="lock-err" id="lock-err"></div>
   </div>
@@ -431,6 +431,7 @@
     <div class="actions">
       <button class="btn btn-secondary" onclick="resetForm()">Azzera</button>
       <button class="btn btn-primary" onclick="window.print()">Stampa / PDF</button>
+      <button class="btn btn-secondary" onclick="logout()" style="margin-left:auto;color:#c0392b;border-color:#c0392b;">Esci</button>
     </div>
     <div class="validity">La presente proposta è valida per <span id="validity_text">15</span> giorni dalla data indicata.</div>
   </div>
@@ -677,6 +678,14 @@ function resetForm() {
   });
   updateProvince();
   recalc();
+}
+
+function logout() {
+  try { sessionStorage.removeItem('pe_auth'); } catch(e) {}
+  document.getElementById('lock-screen').style.display = 'flex';
+  document.querySelector('.page').classList.add('locked');
+  document.getElementById('lock-pwd').value = '';
+  document.getElementById('lock-pwd').focus();
 }
 
 async function hashPwd(pwd) {
