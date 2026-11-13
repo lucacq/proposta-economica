@@ -95,7 +95,8 @@
     body { background:white; }
     .page { box-shadow:none; }
     .actions,.print-filter { display:none!important; }
-    .field input,.field select { border:none; padding:0; background:transparent; -webkit-appearance:none; appearance:none; }
+    .client-section { background:transparent; border:none; padding:0; }
+    .field input,.field select { border:none; border-bottom:1px solid #c0c8d0; padding:2px 0; background:transparent; -webkit-appearance:none; appearance:none; border-radius:0; }
     td input,td select { border:none; background:transparent; -webkit-appearance:none; appearance:none; }
     select { background-image:none!important; }
     .section-excluded { display:none!important; }
@@ -414,6 +415,11 @@
       </div>
     </div>
 
+    <div style="margin-top:20px;">
+      <label style="font-size:12px;font-weight:700;color:var(--dark-bg);display:block;margin-bottom:6px;">Note generali</label>
+      <textarea id="note_generali" rows="3" placeholder="Eventuali note aggiuntive alla proposta..." style="width:100%;border:1px solid #d0d8e0;border-radius:6px;padding:10px 12px;font-size:13px;color:var(--body-gray);font-family:inherit;resize:vertical;background:var(--white);"></textarea>
+    </div>
+
     <div class="notes">
       <strong>Natura del documento:</strong> La presente proposta economica ha carattere puramente indicativo e non costituisce né sostituisce il contratto di abbonamento ai servizi.<br>
       <strong>Configurazione Licenze:</strong> I servizi vengono configurati e tariffati su base utente e non a livello azienda.<br>
@@ -661,6 +667,7 @@ function resetForm() {
   document.querySelectorAll('select').forEach(s => s.selectedIndex=0);
   document.querySelectorAll('.att-promo').forEach(i => i.value='');
   document.querySelectorAll('.section-note,.pag-note').forEach(i => i.value='');
+  document.getElementById('note_generali').value = '';
   document.querySelectorAll('input[type="radio"]').forEach(r => r.checked=false);
   document.getElementById('validita').value = 15;
   // Disable all sections
@@ -773,6 +780,7 @@ function collectFormData() {
   data.pag_note = {};
   document.querySelectorAll('.pag-note').forEach((n, i) => { data.pag_note[i] = n.value; });
   data.hide_empty = document.getElementById('hide_empty')?.checked || false;
+  data.note_generali = document.getElementById('note_generali')?.value || '';
   return data;
 }
 
@@ -831,6 +839,7 @@ function restoreFormData(data) {
     document.querySelectorAll('.pag-note').forEach((n, i) => { if (data.pag_note[i]) n.value = data.pag_note[i]; });
   }
   if (data.hide_empty !== undefined) document.getElementById('hide_empty').checked = data.hide_empty;
+  if (data.note_generali) document.getElementById('note_generali').value = data.note_generali;
   recalc();
 }
 
