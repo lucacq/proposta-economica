@@ -2,1166 +2,1233 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Carioca</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta Economica — Enginet</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,sans-serif}
-body{background:#f5f4f0;color:#1a1917;font-size:14px;padding-bottom:40px}
-header{background:#fff;border-bottom:1px solid #ddd;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99}
-h1{font-size:1rem;font-weight:700}
-.hright{display:flex;align-items:center;gap:8px}
-#badge{font-size:11px;padding:2px 8px;border-radius:12px;background:#f0eee9;color:#78716c;border:1px solid #ddd;white-space:nowrap}
-main{padding:12px;max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
-.page{display:none;flex-direction:column;gap:12px}
-.page.on{display:flex}
-section{background:#fff;border:1px solid #ddd;border-radius:10px;overflow:hidden}
-.stitle{background:#f0eee9;padding:7px 12px;font-size:11px;font-weight:600;color:#78716c;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid #ddd}
-button{cursor:pointer;font-size:14px;font-weight:600;padding:9px 16px;border-radius:8px;border:none;-webkit-tap-highlight-color:transparent}
-button:active{opacity:.7}
-.bp{background:#2563eb;color:#fff}
-.bg{background:#fff;color:#57534e;border:1px solid #ddd}
-.bd{background:#dc2626;color:#fff}
-.bs{padding:6px 12px;font-size:12px}
-.brow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  :root {
+    --dark-bg: #1A2535; --teal: #028090; --green: #02C39A;
+    --body-gray: #5A6A7A; --light-gray: #A0B0C0;
+    --anycat-blue: #29ABE2; --anypro-gold: #F5C518;
+    --footer-bg: #0F1923; --card-bg: #F0F4F8;
+    --row-alt: #F5F7FA; --row-head: #E8EDF2; --white: #FFFFFF;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',Calibri,Arial,sans-serif; color:var(--body-gray); background:linear-gradient(135deg,#f0f4f8 0%,#e8edf2 100%); min-height:100vh; }
+  .page { max-width:900px; margin:0 auto; background:var(--white); min-height:100vh; box-shadow:0 4px 24px rgba(26,37,53,0.08); }
 
-/* centro */
-.cbox{padding:28px 16px;text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center}
-.icon{font-size:64px;line-height:1}
-.ctitle{font-size:18px;font-weight:700}
-.csub{font-size:13px;color:#57534e;max-width:300px;line-height:1.5}
-.err{color:#dc2626;font-size:12px;min-height:16px;text-align:center}
+  .header { background:linear-gradient(135deg,#f5f7fa 0%,var(--row-head) 100%); padding:16px 40px; display:flex; align-items:center; justify-content:space-between; border-bottom:2px solid var(--teal); }
+  .header img { height:38px; }
+  .header .badge { background:var(--teal); color:white; font-size:11px; font-weight:700; padding:6px 18px; border-radius:20px; letter-spacing:0.5px; }
 
-/* PIN campo unico */
-.pin-wrap{display:flex;align-items:center;gap:8px}
-.pin-inp{width:150px;height:52px;font-size:22px;font-weight:700;text-align:center;border:2px solid #ddd;border-radius:8px;background:#fff;color:#1a1917;outline:none;letter-spacing:.3em;font-family:monospace}
-.pin-inp:focus{border-color:#2563eb}
-.eye-btn{background:none;border:1px solid #ddd;border-radius:8px;padding:6px 10px;font-size:18px;cursor:pointer;height:52px}
+  .content { padding:30px 40px 20px; }
+  .section-label { font-size:11px; font-weight:700; color:var(--green); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:4px; }
+  h1 { font-size:26px; color:var(--dark-bg); font-weight:700; margin-bottom:6px; }
+  .accent-line { width:60px; height:3px; background:var(--green); margin-bottom:24px; }
 
-/* OTP 8 cifre */
-.otp-row{display:flex;gap:5px;justify-content:center;flex-wrap:wrap}
-.odig{width:36px;height:46px;font-size:20px;font-weight:700;text-align:center;border:2px solid #ddd;border-radius:8px;background:#fff;color:#1a1917;outline:none;font-family:monospace}
-.odig:focus{border-color:#2563eb}
+  .client-section { margin-bottom:20px; background:var(--card-bg); border:1px solid #d0d8e0; border-radius:8px; padding:14px 18px; }
+  .client-section h2 { font-size:14px; color:var(--dark-bg); font-weight:700; margin-bottom:8px; }
+  .field-row { display:flex; gap:10px; margin-bottom:6px; flex-wrap:wrap; }
+  .field { flex:1; min-width:120px; }
+  .field label { display:block; font-size:10px; font-weight:600; color:var(--light-gray); text-transform:uppercase; letter-spacing:0.3px; margin-bottom:2px; }
+  .field label .req { color:#e04040; }
+  .field input,.field select { width:100%; padding:5px 8px; border:1px solid #d0d8e0; border-radius:4px; font-size:13px; color:var(--dark-bg); background:var(--white); }
+  .field input:focus,.field select:focus { outline:none; border-color:var(--teal); box-shadow:0 0 0 2px rgba(2,128,144,0.12); }
 
-/* lista nomi */
-.nlist{display:flex;flex-direction:column;gap:6px;width:100%;max-width:280px}
-.nbtn{padding:10px 16px;border-radius:8px;border:1px solid #ddd;background:#f5f4f0;color:#1a1917;font-weight:600;font-size:14px;cursor:pointer;text-align:left}
-.nbtn.sel{background:#2563eb;color:#fff;border-color:#2563eb}
+  .price-section { margin-bottom:28px; border-left:3px solid #d0d8e0; padding-left:16px; transition:border-color 0.3s; }
+  .price-section:not(.section-excluded) { border-left-color:var(--teal); }
+  #sec_anycat:not(.section-excluded) { border-left-color:var(--anycat-blue); }
+  #sec_anypro:not(.section-excluded) { border-left-color:var(--anypro-gold); }
+  #sec_moduli:not(.section-excluded) { border-left-color:var(--green); }
+  #sec_ws:not(.section-excluded) { border-left-color:#8e44ad; }
+  .section-header { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .section-header h3 { font-size:15px; color:var(--dark-bg); font-weight:700; margin-bottom:0; }
+  .section-toggle { position:relative; width:38px; height:20px; flex-shrink:0; }
+  .section-toggle input { opacity:0; width:0; height:0; }
+  .section-toggle .slider { position:absolute; cursor:pointer; top:0;left:0;right:0;bottom:0; background:#ccd3db; border-radius:20px; transition:0.25s; }
+  .section-toggle .slider:before { content:""; position:absolute; height:16px; width:16px; left:2px; bottom:2px; background:white; border-radius:50%; transition:0.25s; }
+  .section-toggle input:checked+.slider { background:var(--teal); }
+  .section-toggle input:checked+.slider:before { transform:translateX(18px); }
+  .section-excluded { opacity:0.35; }
+  .section-excluded table,.section-excluded .tier-ref { pointer-events:none; }
+  .section-excluded .section-header { opacity:1; }
+  .section-excluded .section-toggle { pointer-events:auto; }
+  .section-tag { font-size:10px; color:var(--light-gray); font-weight:400; margin-left:4px; }
 
-/* attesa */
-.abox{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 16px;font-size:13px;color:#78350f;line-height:1.6;width:100%;max-width:300px}
-.pulse{animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  thead th { background:linear-gradient(180deg,#edf1f5 0%,#e4e9ef 100%); color:var(--dark-bg); font-weight:700; text-align:left; padding:9px 10px; font-size:12px; text-transform:uppercase; letter-spacing:0.3px; }
+  tbody td { padding:8px 10px; border-bottom:1px solid #edf0f3; vertical-align:middle; }
+  tbody tr:nth-child(even) { background:var(--row-alt); }
+  tbody tr:hover { background:#e8f4f8; }
+  .col-voce { min-width:200px; }
+  .col-listino { width:100px; font-size:12px; color:var(--light-gray); text-align:right; }
+  .col-promo { width:85px; }
+  .col-promo input { width:70px; padding:3px 5px; border:1px solid #f5c518; border-radius:3px; font-size:12px; text-align:right; color:var(--dark-bg); background:#fffef5; }
+  .col-promo input:focus { border-color:var(--anypro-gold); outline:none; }
+  .col-promo input::placeholder { color:#ccc; font-size:12px; }
+  .col-qty { width:80px; }
+  .col-qty input { width:70px; padding:3px 5px; border:1px solid #d0d8e0; border-radius:3px; font-size:12px; text-align:right; }
+  .col-qty input:focus { outline:none; border-color:var(--teal); }
+  .col-tot { width:100px; text-align:right; font-weight:700; font-size:15px; color:var(--dark-bg); }
+  .totale-row { background:linear-gradient(90deg,#e8f0f2 0%,var(--card-bg) 100%)!important; }
+  .totale-row td { font-weight:700; color:var(--dark-bg); font-size:15px; padding:12px 10px; border-top:2px solid var(--teal); }
 
-/* benvenuto */
-.wbox{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px 16px;font-size:13px;color:#14532d;line-height:1.8;width:100%;max-width:300px}
+  .tier-ref { font-size:10px; color:var(--light-gray); margin-top:2px; }
+  .tier-btn { background:none; border:1px solid #d0d8e0; border-radius:3px; padding:1px 7px; font-size:10px; color:var(--teal); cursor:pointer; font-family:inherit; }
+  .tier-btn:hover { background:var(--card-bg); }
+  .tier-detail { display:none; margin-top:3px; padding:4px 8px; background:#f0f7f8; border-radius:4px; font-size:10px; line-height:1.6; color:var(--body-gray); }
+  .tier-detail.open { display:block; }
+  .btn-clone { background:none; border:1px solid #d0d8e0; border-radius:3px; padding:1px 6px; font-size:10px; color:var(--teal); cursor:pointer; font-family:inherit; margin-left:4px; }
+  .btn-clone:hover { background:var(--card-bg); }
+  .btn-remove-clone { background:none; border:none; color:#c0392b; cursor:pointer; font-size:12px; padding:0 4px; }
+  .btn-remove-clone:hover { color:#e74c3c; }
+  .loc-suggest { position:absolute; z-index:100; background:white; border:1px solid #d0d8e0; border-top:none; border-radius:0 0 6px 6px; max-height:180px; overflow-y:auto; box-shadow:0 4px 12px rgba(0,0,0,0.1); width:100%; }
+  .loc-suggest div { padding:6px 10px; font-size:12px; cursor:pointer; color:var(--dark-bg); }
+  .loc-suggest div:hover { background:var(--card-bg); }
+  .loc-suggest div small { color:var(--light-gray); }
 
-/* setup */
-.vrow{display:flex;gap:8px;padding:10px 12px;border-bottom:1px solid #ddd}
-.vbtn{flex:1;text-align:center;padding:9px 4px;border-radius:8px;border:1px solid #ddd;background:#f0eee9;color:#57534e;font-weight:500;font-size:13px;cursor:pointer}
-.vbtn.sel{background:#eff6ff;border-color:#bfdbfe;color:#2563eb;font-weight:700}
-.prow{display:flex;align-items:center;gap:8px;padding:9px 12px;border-bottom:1px solid #eee}
-.prow:last-child{border-bottom:none}
-.pnum{font-size:11px;color:#a8a29e;width:14px;flex-shrink:0}
-input[type=text]{flex:1;padding:8px 10px;font-size:14px;border:1px solid #ddd;border-radius:8px;background:#f5f4f0;color:#1a1917;outline:none;min-width:0}
-input[type=text]:focus{border-color:#2563eb;background:#fff}
-input[type=radio]{width:16px;height:16px;accent-color:#2563eb}
-.foot{padding:10px 12px;border-top:1px solid #ddd;display:flex;justify-content:flex-end;gap:8px;align-items:center}
+  .notes { margin-top:28px; padding:20px 24px; background:linear-gradient(135deg,#f0f8f6 0%,#edf7f5 100%); border-radius:8px; font-size:12px; line-height:1.8; border:1px solid #d4ebe5; }
+  .notes strong { color:var(--dark-bg); font-weight:600; }
+  .footer { background:linear-gradient(135deg,var(--footer-bg) 0%,#172433 100%); padding:18px 40px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-top:30px; }
+  .footer span { color:var(--light-gray); font-size:12px; }
+  .actions { display:flex; gap:12px; margin-top:24px; justify-content:flex-end; flex-wrap:wrap; }
+  .btn { padding:11px 28px; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; transition:all 0.2s; }
+  .btn-primary { background:linear-gradient(135deg,var(--teal) 0%,#026e7a 100%); color:white; box-shadow:0 2px 8px rgba(2,128,144,0.25); }
+  .btn-primary:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(2,128,144,0.35); }
+  .btn-secondary { background:var(--card-bg); color:var(--dark-bg); border:1px solid #d0d8e0; }
+  .btn-secondary:hover { background:#e0e6ec; }
 
-/* mano */
-.mbox{padding:12px}
-.mnum{font-size:11px;color:#a8a29e;margin-bottom:1px;font-family:monospace}
-.mnome{font-size:20px;font-weight:700;line-height:1.2}
-.mdesc{font-size:12px;color:#57534e;margin-top:3px}
 
-/* griglia */
-.gscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-table.grid{width:100%;border-collapse:collapse;table-layout:fixed}
-table.grid .cm{width:110px}
-@media(max-width:400px){table.grid .cm{width:88px}}
-table.grid th,table.grid td{padding:7px 5px;border-bottom:1px solid #eee;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}
-table.grid th.cm,table.grid td.cm{text-align:left;border-right:1px solid #eee;padding-left:10px;font-size:11px}
-table.grid thead th{background:#f0eee9;font-size:11px;font-weight:600;color:#78716c}
-table.grid thead th.cm{background:#f0eee9}
-.ptot{font-size:13px;font-weight:700;display:block;margin-top:1px;font-family:monospace}
-.ptot.best{color:#15803d}.ptot.worst{color:#dc2626}
-.pill{display:inline-block;padding:2px 7px;border-radius:12px;font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
-tr.ra{background:#eff6ff}
-tr.ra td.cm{color:#2563eb;font-weight:700}
-td.cm{cursor:pointer;color:#57534e}
-td.cm:hover{background:#f0eee9}
-tr.ra td.cm:hover{background:#eff6ff}
-td.cs{color:#b45309;font-weight:700}
-.leg{font-size:10px;color:#a8a29e;padding:5px 10px;display:flex;gap:10px;flex-wrap:wrap;border-top:1px solid #eee}
+  .print-filter { background:var(--card-bg); border-radius:6px; padding:10px 16px; margin-bottom:20px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .print-filter label { font-size:12px; color:var(--body-gray); cursor:pointer; display:flex; align-items:center; gap:5px; }
+  .print-filter input[type="checkbox"] { accent-color:var(--teal); }
+  .pf-title { font-size:12px; font-weight:700; color:var(--dark-bg); }
 
-/* inserimento */
-.pinp-sec{padding:12px;border-top:1px solid #eee}
-.pinp-row{display:flex;align-items:center;gap:6px;padding:7px 8px;background:#f5f4f0;border-radius:8px;margin-bottom:5px}
-.pinp-name{font-weight:600;font-size:13px;flex:1;min-width:50px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.nwrap{display:flex;align-items:center;gap:4px;flex-shrink:0}
-.nbtn2{width:34px;height:34px;border-radius:7px;border:1px solid #ddd;background:#fff;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
-.nbtn2:active{background:#ddd}
-.nval{width:52px;text-align:center;font-family:monospace;font-size:15px;font-weight:700;border:1px solid #ddd;border-radius:7px;padding:6px 2px;background:#fff;color:#1a1917;outline:none}
-.nval:focus{border-color:#2563eb}
-.nval:disabled{background:#f0eee9;color:#a8a29e}
-.starbtn{display:flex;align-items:center;gap:4px;padding:6px 8px;border-radius:7px;border:1px solid #ddd;background:#fff;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;flex-shrink:0}
-.starbtn.on{background:#fffbeb;border-color:#fde68a;color:#b45309;font-weight:700}
-.cbtn{margin-top:10px;width:100%}
+  @media print {
+    @page { margin:12mm 10mm; }
+    body { background:white; font-size:10px; }
+    .page { box-shadow:none; max-width:100%; }
+    .header { padding:8px 20px; }
+    .header img { height:28px; }
+    .header .badge { font-size:9px; padding:4px 12px; }
+    .content { padding:12px 20px 10px; }
+    h1 { font-size:18px; margin-bottom:4px; }
+    .section-label { font-size:9px; margin-bottom:2px; }
+    .accent-line { width:40px; height:2px; margin-bottom:12px; }
+    .client-section { background:transparent; border:none; padding:0; margin-bottom:10px; }
+    .client-section h2 { font-size:11px; margin-bottom:4px; }
+    .field-row { gap:6px; margin-bottom:3px; }
+    .field label { font-size:8px; margin-bottom:1px; }
+    .field input,.field select { font-size:10px; border:none; border-bottom:1px solid #c0c8d0; padding:1px 0; background:transparent; -webkit-appearance:none; appearance:none; border-radius:0; }
+    .actions,.print-filter { display:none!important; }
+    td input,td select { border:none; background:transparent; -webkit-appearance:none; appearance:none; font-size:10px; }
+    select { background-image:none!important; }
+    .section-excluded { display:none!important; }
+    .row-hidden-print { display:none!important; }
+    .section-toggle,.section-tag { display:none!important; }
+    .tier-ref { display:none!important; }
+    .col-listino { display:none!important; }
+    thead .th-listino { display:none!important; }
+    .btn-clone,.btn-remove-clone { display:none!important; }
+    .price-section { margin-bottom:12px; padding-left:10px; }
+    .section-header { margin-bottom:4px; }
+    .section-header h3 { font-size:12px; }
+    table { font-size:10px; }
+    thead th { padding:4px 6px; font-size:9px; }
+    tbody td { padding:3px 6px; }
+    .col-tot { font-size:12px; }
+    .totale-row td { font-size:12px; padding:6px 6px; }
+    .notes { margin-top:12px; padding:10px 14px; font-size:10px; line-height:1.5; }
+    .footer { padding:8px 20px; margin-top:12px; }
+    .footer span { font-size:10px; }
 
-/* OTP banner */
-.otpban{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
-.otpcode{font-family:monospace;font-size:24px;font-weight:700;letter-spacing:.15em;color:#1a1917;flex:1}
+    #note_generali { border:none; border-bottom:1px solid #c0c8d0; border-radius:0; padding:2px 0; font-size:10px; resize:none; }
+    .pag-note { font-size:10px!important; }
+    input::placeholder, textarea::placeholder { color:transparent!important; }
+    .section-note::placeholder { color:transparent!important; }
+  }
+  @media (max-width:600px) {
+    .content { padding:20px 16px; }
+    .header,.footer { padding:10px 16px; }
+    .field-row { flex-direction:column; gap:6px; }
+    .field { min-width:100%; }
+  }
+  /* Repository panel */
+  .repo-bar { background:var(--card-bg); border-radius:6px; padding:10px 16px; margin-bottom:16px; border:1px solid #d0d8e0; }
+  .repo-bar summary { font-size:13px; font-weight:700; color:var(--dark-bg); cursor:pointer; list-style:none; display:flex; align-items:center; gap:8px; }
+  .repo-bar summary::-webkit-details-marker { display:none; }
+  .repo-bar summary::before { content:'▶'; font-size:9px; color:var(--teal); transition:transform 0.2s; display:inline-block; }
+  .repo-bar[open] summary::before { transform:rotate(90deg); }
+  .repo-cfg { margin-top:10px; display:flex; gap:8px; align-items:flex-end; flex-wrap:wrap; }
+  .repo-cfg label { font-size:10px; font-weight:600; color:var(--light-gray); text-transform:uppercase; display:block; margin-bottom:2px; }
+  .repo-cfg input { padding:5px 8px; border:1px solid #d0d8e0; border-radius:4px; font-size:12px; color:var(--dark-bg); }
+  .repo-cfg button { padding:5px 14px; border:none; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer; background:var(--teal); color:white; }
+  .repo-cfg button:hover { background:#026e7a; }
+  .repo-list { margin-top:12px; max-height:220px; overflow-y:auto; }
+  .repo-item { display:flex; align-items:center; justify-content:space-between; padding:7px 10px; border-bottom:1px solid #edf0f3; font-size:12px; cursor:pointer; transition:background 0.15s; gap:8px; }
+  .repo-item:hover { background:#e8f4f8; }
+  .repo-item .ri-info { flex:1; min-width:0; }
+  .repo-item .ri-name { font-weight:600; color:var(--dark-bg); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .repo-item .ri-meta { font-size:10px; color:var(--light-gray); }
+  .repo-item .ri-badge { font-size:9px; padding:2px 6px; border-radius:10px; font-weight:600; white-space:nowrap; }
+  .ri-badge.sent { background:#d4ebe5; color:#0a6e50; }
+  .ri-badge.draft { background:#fff3cd; color:#856404; }
+  .repo-item .ri-actions { display:flex; gap:4px; }
+  .repo-item .ri-actions button { padding:3px 8px; border:none; border-radius:3px; font-size:10px; cursor:pointer; background:#e0e6ec; color:var(--dark-bg); }
+  .repo-item .ri-actions button:hover { background:var(--teal); color:white; }
+  .repo-item .ri-actions button.ri-del { color:#c0392b; }
+  .repo-item .ri-actions button.ri-del:hover { background:#c0392b; color:white; }
+  .repo-status { font-size:11px; color:var(--light-gray); margin-top:6px; font-style:italic; min-height:16px; }
+  .repo-version-banner { background:linear-gradient(90deg,#fff3cd 0%,#ffeeba 100%); border:1px solid #f5c518; border-radius:6px; padding:8px 14px; margin-bottom:12px; font-size:12px; color:#856404; display:none; }
+  .repo-version-banner strong { color:#664d03; }
+  .repo-save-row { display:flex; gap:6px; margin-top:10px; align-items:center; flex-wrap:wrap; }
+  .repo-save-row button { padding:5px 14px; border:none; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer; }
+  .repo-save-row .btn-save { background:var(--green); color:white; }
+  .repo-save-row .btn-save:hover { background:#02a880; }
+  .repo-save-row .btn-mark-sent { background:#3498db; color:white; }
+  .repo-save-row .btn-mark-sent:hover { background:#2980b9; }
+  .repo-save-row select { padding:4px 8px; font-size:12px; border:1px solid #d0d8e0; border-radius:4px; }
+  @media print { .repo-bar,.repo-version-banner { display:none!important; } }
 
-/* home */
-.hrow{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid #eee}
-.hrow:last-child{border-bottom:none}
-.hlabel{flex:1;font-weight:500;font-size:13px}
-.hval{font-size:12px;color:#57534e}
-.einp{flex:1;padding:6px 10px;font-size:13px;border:1px solid #bfdbfe;border-radius:8px;background:#eff6ff;color:#1a1917;outline:none}
-
-/* attesa arbitro */
-.arow{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid #eee}
-.arow:last-child{border-bottom:none}
-.anom{flex:1;font-weight:600}
-
-/* finale */
-.frow{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid #eee}
-.frow:last-child{border-bottom:none}
-.frank{font-size:1.2rem;font-weight:700;color:#a8a29e;width:26px;flex-shrink:0}
-.frank.g{color:#b45309}
-.fname{flex:1;font-size:14px;font-weight:700}
-.fpts{font-family:monospace;font-size:15px;font-weight:700;color:#2563eb}
-
-.load{display:flex;align-items:center;justify-content:center;min-height:60vh;flex-direction:column;gap:14px}
-.spin{width:28px;height:28px;border:3px solid #ddd;border-top-color:#2563eb;border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.note{font-size:12px;color:#a8a29e;text-align:center;padding:8px}
+  #lock-screen { position:fixed; inset:0; z-index:9999; background:linear-gradient(135deg,var(--dark-bg) 0%,#0d1a28 100%); display:flex; align-items:center; justify-content:center; }
+  #lock-screen .lock-box { background:var(--white); border-radius:16px; padding:44px 40px; text-align:center; max-width:380px; width:90%; box-shadow:0 16px 48px rgba(0,0,0,0.4); }
+  #lock-screen .lock-box img { height:32px; margin-bottom:16px; }
+  #lock-screen .lock-box h2 { font-size:18px; color:var(--dark-bg); margin-bottom:6px; }
+  #lock-screen .lock-box p { font-size:13px; color:var(--light-gray); margin-bottom:20px; }
+  #lock-screen .lock-box input { width:100%; padding:12px; font-size:20px; text-align:center; letter-spacing:8px; text-transform:uppercase; border:2px solid #d0d8e0; border-radius:8px; font-family:monospace; }
+  #lock-screen .lock-box input:focus { outline:none; border-color:var(--teal); }
+  #lock-screen .lock-box .lock-btn { margin-top:14px; width:100%; padding:12px; background:var(--teal); color:white; border:none; border-radius:8px; font-size:15px; font-weight:600; cursor:pointer; }
+  #lock-screen .lock-box .lock-btn:hover { background:#026e7a; }
+  #lock-screen .lock-err { color:#e04040; font-size:12px; margin-top:8px; min-height:16px; }
+  .page.locked { filter:blur(12px); pointer-events:none; user-select:none; }
 </style>
 </head>
 <body>
-<header>
-  <h1 id="logo" style="cursor:pointer">Carioca 🎴</h1>
-  <div class="hright">
-    <span id="badge">—</span>
-    <button class="bg bs" id="btnCambia" style="display:none;font-size:11px;padding:4px 8px" onclick="cambia()">Cambia ruolo</button>
-  </div>
-</header>
-<main>
-
-<!-- CARICAMENTO -->
-<div class="page on" id="pLoad">
-  <div class="load"><div class="spin"></div><p id="loadMsg" style="color:#78716c">Avvio…</p></div>
-</div>
-
-<!-- RUOLO -->
-<div class="page" id="pRuolo">
-  <section>
-    <div class="cbox">
-      <div class="icon">🎴</div>
-      <div class="ctitle">Carioca</div>
-      <div class="csub">Scegli il tuo ruolo per continuare</div>
-      <div class="brow">
-        <button class="bp" onclick="vaiPin()">Sono l'arbitro</button>
-        <button class="bg" onclick="vaiOtp()">Sono un giocatore</button>
-      </div>
-      <div id="sbloccaWrap" style="display:none;margin-top:8px;text-align:center">
-        <button class="bg bs" onclick="sblocca()" style="color:#dc2626;border-color:#fca5a5;font-size:12px">🔓 Sblocca dispositivo</button>
-        <div style="font-size:11px;color:#a8a29e;margin-top:3px">Cancella sessione salvata su questo dispositivo</div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- PIN ARBITRO -->
-<div class="page" id="pPin">
-  <section>
-    <div class="stitle">Accesso arbitro</div>
-    <div class="cbox">
-      <div class="icon">🔐</div>
-      <div class="csub">Inserisci il codice di accesso a 6 caratteri</div>
-      <div class="pin-wrap">
-        <input type="password" class="pin-inp" id="pinInp" maxlength="10" autocomplete="off" placeholder="··········">
-        <button class="eye-btn" id="eyeBtn" onclick="toggleEye()">👁</button>
-      </div>
-      <div class="err" id="pinErr"></div>
-      <div class="brow">
-        <button class="bp" onclick="checkPin()">Entra</button>
-        <button class="bg" onclick="vai('pRuolo')">Annulla</button>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ARBITRO: giochi anche tu? -->
-<div class="page" id="pArbGioca">
-  <section>
-    <div class="stitle">Accesso arbitro</div>
-    <div class="cbox">
-      <div class="icon">🎮</div>
-      <div class="ctitle">Giochi anche tu?</div>
-      <div class="csub">Seleziona il tuo nome oppure entra solo come arbitro</div>
-      <div class="nlist" id="arbNomi"></div>
-      <div class="brow" style="margin-top:8px">
-        <button class="bg" onclick="arbSolo()">Solo arbitro</button>
-        <button class="bd bs" onclick="arbReset()">Reset partita</button>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- OTP GIOCATORE -->
-<div class="page" id="pOtp">
-  <section>
-    <div class="stitle">Accesso giocatore</div>
-    <div class="cbox">
-      <div class="icon">🃏</div>
-      <div class="csub">Inserisci il codice partita a 8 cifre fornito dall'arbitro</div>
-      <div class="otp-row" id="otpRow"></div>
-      <div class="err" id="otpErr"></div>
-      <div class="brow">
-        <button class="bp" onclick="checkOtp()">Continua</button>
-        <button class="bg" onclick="vai('pRuolo')">Annulla</button>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- SCELTA NOME -->
-<div class="page" id="pNome">
-  <section>
-    <div class="stitle">Chi sei?</div>
-    <div class="cbox">
-      <div class="icon">👤</div>
-      <div class="csub">Seleziona il tuo nome dall'elenco</div>
-      <div class="nlist" id="nomeList"></div>
-      <div class="brow" style="margin-top:4px">
-        <button class="bp" id="btnNomeOk" onclick="confermaNome()" disabled>Siediti al tavolo</button>
-        <button class="bg" onclick="vai('pRuolo')">Annulla</button>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- SALA ATTESA -->
-<div class="page" id="pAttesa">
-  <section>
-    <div class="cbox">
-      <div class="icon pulse">🚪</div>
-      <div class="ctitle">Sala d'attesa</div>
-      <div class="csub">Hai inserito il codice corretto.<br>L'arbitro ti autorizzerà a sederti al tavolo.</div>
-      <div class="abox" id="attesaMsg"></div>
-    </div>
-  </section>
-</div>
-
-<!-- BENVENUTO -->
-<div class="page" id="pBenv">
-  <section>
-    <div class="cbox">
-      <div class="icon">🎉</div>
-      <div class="ctitle">Sei al tavolo!</div>
-      <div class="csub">L'arbitro ti ha autorizzato. Benvenuto!</div>
-      <div class="wbox" id="benvInfo"></div>
-      <button class="bp" onclick="entra()">Vai alla partita →</button>
-    </div>
-  </section>
-</div>
-
-<!-- HOME -->
-<div class="page" id="pHome">
-  <section id="hStato"></section>
-  <section id="hGioc" style="display:none">
-    <div class="stitle">Giocatori</div>
-    <div id="hGiocList"></div>
-  </section>
-  <section id="hAttesa" style="display:none">
-    <div class="stitle" id="hAttesaTitle">In sala d'attesa</div>
-    <div id="hAttesaList"></div>
-  </section>
-  <div style="display:flex;gap:8px;flex-wrap:wrap" id="hBtns"></div>
-</div>
-
-<!-- SETUP -->
-<div class="page" id="pSetup">
-  <section>
-    <div class="vrow" id="varRow">
-      <div class="vbtn sel" data-v="normale" onclick="selVar(this)">Carioca normale</div>
-      <div class="vbtn" data-v="completa" onclick="selVar(this)">Carioca completa</div>
-    </div>
-    <div style="display:flex;justify-content:space-between;padding:7px 12px 5px;font-size:11px;color:#a8a29e;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid #ddd">
-      <span>Giocatori — ordine di sequenza</span><span>1° mazziere</span>
-    </div>
-    <div id="plist"></div>
-    <div class="foot">
-      <span style="font-size:12px;color:#a8a29e">minimo 4</span>
-      <button class="bp" onclick="startGame()">Inizia partita</button>
-    </div>
-  </section>
-</div>
-
-<!-- GIOCO -->
-<div class="page" id="pGame">
-  <div class="otpban" id="otpBan" style="display:none">
-    <div>
-      <div style="font-size:11px;color:#b45309;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Codice partita — condividi con i giocatori</div>
-      <div class="otpcode" id="otpDisp"></div>
-    </div>
-    <button class="bg bs" onclick="copiaOtp()">Copia</button>
-  </div>
-  <section>
-    <div class="mbox">
-      <div class="mnum" id="mCnt"></div>
-      <div class="mnome" id="mNome"></div>
-      <div class="mdesc" id="mDesc"></div>
-    </div>
-    <div class="pinp-sec" id="pinpSec" style="display:none">
-      <div id="pinpList"></div>
-      <button class="bp cbtn" onclick="conferma()">Conferma punteggi</button>
-    </div>
-    <div class="note" id="spectNote" style="display:none">Clicca una riga per vedere la mano selezionata dall'arbitro</div>
-  </section>
-  <section>
-    <div class="gscroll">
-      <table class="grid"><thead><tr id="gHead"></tr></thead><tbody id="gBody"></tbody></table>
-    </div>
-    <div class="leg">
-      <span>★ = ha chiuso</span>
-      <span style="color:#15803d;font-weight:600">verde = miglior totale</span>
-      <span style="color:#dc2626;font-weight:600">rosso = peggior totale</span>
-    </div>
-  </section>
-  <div style="display:flex;gap:8px">
-    <button class="bg" style="flex:1" onclick="goHome()">↩ Home</button>
-    <button class="bd bs" id="btnReset" style="display:none" onclick="arbReset()">Reset partita</button>
+<div id="lock-screen">
+  <div class="lock-box">
+    <h2>Area Riservata</h2>
+    <p>Inserire il codice di accesso per visualizzare la proposta economica</p>
+    <input type="password" id="lock-pwd" maxlength="6" placeholder="······" autocomplete="off" onkeydown="if(event.key==='Enter')unlock()">
+    <button class="lock-btn" onclick="unlock()">Accedi</button>
+    <div class="lock-err" id="lock-err"></div>
   </div>
 </div>
+<div class="page locked">
+  <div class="header">
+    <img src="data:image/png;base64,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" alt="Enginet">
+    <div class="badge">PROPOSTA ECONOMICA</div>
+  </div>
+  <div class="content">
+    <div class="section-label">Piattaforma Motorplan Enginet</div>
+    <h1>Proposta Economica</h1>
+    <div class="accent-line"></div>
 
-<!-- FINALE -->
-<div class="page" id="pFin">
-  <div style="font-size:18px;font-weight:700;padding:4px 0">Partita conclusa 🏆</div>
-  <section id="finCard"></section>
-  <button class="bg" style="width:100%;margin-top:8px" onclick="goHome()">↩ Home</button>
+    <div class="client-section">
+      <h2>Dati Cliente</h2>
+      <div class="field-row">
+        <div class="field" style="flex:2"><label>Ragione Sociale <span class="req">*</span></label><input type="text" id="ragione" placeholder="Inserire ragione sociale" required></div>
+        <div class="field"><label>P.IVA</label><input type="text" id="piva" placeholder="IT00000000000"></div>
+        <div class="field"><label>Referente</label><input type="text" id="referente" placeholder="Nome e cognome"></div>
+      </div>
+      <div class="field-row">
+        <div class="field" style="flex:2"><label>Indirizzo</label><input type="text" id="indirizzo" placeholder="Via/Piazza..."></div>
+        <div class="field" style="flex:0.4"><label>CAP</label><input type="text" id="cap" placeholder="00000"></div>
+        <div class="field" style="position:relative;"><label>Località <span class="req">*</span></label><input type="text" id="localita" placeholder="Inizia a digitare..." required autocomplete="off" oninput="searchLocalita(this.value)"><div class="loc-suggest" id="loc_suggest" style="display:none;"></div></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Regione</label><select id="regione" onchange="updateProvince()"><option value="">— selezionare —</option></select></div>
+        <div class="field"><label>Provincia</label><select id="provincia" disabled><option value="">— prima seleziona regione —</option></select></div>
+        <div class="field"><label>Email</label><input type="email" id="email_cliente" placeholder="email@esempio.it"></div>
+        <div class="field"><label>Telefono</label><input type="text" id="tel_cliente" placeholder="+39..."></div>
+      </div>
+      <div class="field-row">
+        <div class="field" style="flex:0.6"><label>Data proposta</label><input type="date" id="data_proposta"></div>
+        <div class="field" style="flex:0.4"><label>Validità (gg)</label><input type="number" id="validita" value="15" min="1"></div>
+        <div class="field" style="flex:0.5"><label>N. Proposta</label><input type="text" id="n_proposta" placeholder="2026/001"></div>
+        <div class="field" style="flex:1"></div>
+      </div>
+    </div>
+
+    <div class="print-filter">
+      <span class="pf-title">Sezioni incluse:</span>
+      <label><input type="checkbox" id="inc_anycat" onchange="toggleSection('sec_anycat',this.checked)"> ANYcat</label>
+      <label><input type="checkbox" id="inc_anypro" onchange="toggleSection('sec_anypro',this.checked)"> ANYpro</label>
+      <label><input type="checkbox" id="inc_moduli" onchange="toggleSection('sec_moduli',this.checked)"> Moduli</label>
+      <label><input type="checkbox" id="inc_ws" onchange="toggleSection('sec_ws',this.checked)"> Webservice</label>
+      <span style="margin-left:auto"><label><input type="checkbox" id="hide_empty" checked onchange="recalc()"> Nascondi righe vuote in stampa</label></span>
+    </div>
+
+    <div class="repo-version-banner" id="repo_version_banner">
+      <strong>⚠ Revisione</strong> — Esiste una versione precedente di questa proposta, inviata il <span id="repo_first_sent"></span>. Versione attuale: <strong>#<span id="repo_ver_num">1</span></strong>
+    </div>
+
+    <details class="repo-bar">
+      <summary>Archivio Proposte</summary>
+      <div class="repo-cfg">
+        <div><label>GitHub Token (PAT)</label><div style="display:flex;gap:0;"><input type="password" id="gh_token" style="width:200px;border-radius:4px 0 0 4px;" placeholder="ghp_xxxx..."><button type="button" onclick="const i=document.getElementById('gh_token');const t=i.type==='password'?'text':'password';i.type=t;this.textContent=t==='password'?'👁':'🙈';" style="padding:4px 8px;border:1px solid #d0d8e0;border-left:none;border-radius:0 4px 4px 0;background:var(--card-bg);cursor:pointer;font-size:13px;">👁</button></div></div>
+        <div><label>Repo (owner/repo)</label><input type="text" id="gh_repo" style="width:180px;" placeholder="lucacq/proposta-economica"></div>
+        <button onclick="repoConnect()">Connetti</button>
+      </div>
+      <div class="repo-save-row">
+        <button class="btn-save" onclick="repoSave()">💾 Salva proposta</button>
+        <button class="btn-mark-sent" onclick="repoMarkSent()">✉ Segna come inviata</button>
+      </div>
+      <div class="repo-list" id="repo_list"></div>
+      <div class="repo-status" id="repo_status"></div>
+    </details>
+
+    <!-- ANYcat -->
+    <div class="price-section section-excluded" id="sec_anycat">
+      <div class="section-header">
+        <label class="section-toggle"><input type="checkbox" onchange="document.getElementById('inc_anycat').checked=this.checked;toggleSection('sec_anycat',this.checked)"><span class="slider"></span></label>
+        <h3>ANYcat — Catalogo Ricambi</h3>
+        <span class="section-tag">escluso</span>
+      </div>
+      <table>
+        <thead><tr><th class="col-voce">Voce</th><th class="th-listino col-listino">Listino</th><th>Promo €</th><th>Qtà</th><th style="text-align:right">Totale</th></tr></thead>
+        <tbody id="tbody_anycat">
+          <tr data-unit="174" data-tiers="1:174|2-4:164|5-9:158|10+:trattativa">
+            <td class="col-voce">Utenza ANYcat <button class="btn-clone" onclick="cloneRow(this)" title="Aggiungi riga">+</button><div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">scaglioni ▾</button><div class="tier-detail">1 → € 174,00 · 2-4 → € 164,00 · 5-9 → € 158,00 · 10+ → trattativa</div></div></td>
+            <td class="col-listino">€ 174,00</td>
+            <td class="col-promo"><input type="text" inputmode="decimal" placeholder="promo" onchange="recalc()"></td>
+            <td class="col-qty"><input type="text" inputmode="numeric" value="0" class="qty" onchange="recalc()"></td>
+            <td class="col-tot">€ 0,00</td>
+          </tr>
+          <tr data-unit="101" data-tiers="1:101|2-4:100|5-9:89|10+:trattativa">
+            <td class="col-voce">Modulo ANYweb <button class="btn-clone" onclick="cloneRow(this)" title="Aggiungi riga">+</button><div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">scaglioni ▾</button><div class="tier-detail">1 → € 101,00 · 2-4 → € 100,00 · 5-9 → € 89,00 · 10+ → trattativa</div></div></td>
+            <td class="col-listino">€ 101,00</td>
+            <td class="col-promo"><input type="text" inputmode="decimal" placeholder="promo" onchange="recalc()"></td>
+            <td class="col-qty"><input type="text" inputmode="numeric" value="0" class="qty" onchange="recalc()"></td>
+            <td class="col-tot">€ 0,00</td>
+          </tr>
+          <tr data-unit="0.21" data-ricarica="1">
+            <td class="col-voce">Crediti Targhe ANYcat <button class="btn-clone" onclick="cloneRow(this)" title="Aggiungi riga">+</button><div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">scaglioni ▾</button><div class="tier-detail">500 → € 0,21/cad · 1.000 → € 0,19/cad · 2.000 → € 0,17/cad · 4.000 → € 0,15/cad · 6.000 → € 0,14/cad · 8.000 → € 0,13/cad</div></div></td>
+            <td class="col-listino">€ 0,21/cad</td>
+            <td class="col-promo"><input type="text" inputmode="decimal" placeholder="promo" onchange="recalc()"></td>
+            <td class="col-qty"><input type="text" inputmode="numeric" value="0" class="qty" onchange="recalc()"></td>
+            <td class="col-tot">€ 0,00</td>
+          </tr>
+          <tr data-unit="0.22" data-ricarica="1">
+            <td class="col-voce">Crediti Telai ANYcat <button class="btn-clone" onclick="cloneRow(this)" title="Aggiungi riga">+</button><div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">scaglioni ▾</button><div class="tier-detail">500 → € 0,22/cad · 1.000 → € 0,20/cad · 2.000 → € 0,18/cad · 4.000 → € 0,16/cad · 6.000 → € 0,15/cad</div></div></td>
+            <td class="col-listino">€ 0,22/cad</td>
+            <td class="col-promo"><input type="text" inputmode="decimal" placeholder="promo" onchange="recalc()"></td>
+            <td class="col-qty"><input type="text" inputmode="numeric" value="0" class="qty" onchange="recalc()"></td>
+            <td class="col-tot">€ 0,00</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="5" style="padding:6px 10px;"><label style="font-size:11px;color:var(--light-gray);">Note:</label> <input type="text" class="section-note" placeholder="Eventuali note per ANYcat..." style="width:calc(100% - 50px);border:none;border-bottom:1px solid #e0e4e8;font-size:12px;padding:3px 4px;color:var(--body-gray);background:transparent;"></td></tr>
+          <tr class="totale-row"><td colspan="4">Subtotale servizi ANYcat</td><td class="col-tot" id="sub_anycat_servizi">€ 0,00</td></tr>
+          <tr class="totale-row"><td colspan="4">Subtotale crediti ricaricabili ANYcat</td><td class="col-tot" id="sub_anycat_ricariche">€ 0,00</td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- ANYpro -->
+    <div class="price-section section-excluded" id="sec_anypro">
+      <div class="section-header">
+        <label class="section-toggle"><input type="checkbox" onchange="document.getElementById('inc_anypro').checked=this.checked;toggleSection('sec_anypro',this.checked)"><span class="slider"></span></label>
+        <h3>ANYpro — Ricerca Fornitori</h3>
+        <span class="section-tag">escluso</span>
+      </div>
+      <table>
+        <thead><tr><th class="col-voce">Voce</th><th class="th-listino col-listino">Listino</th><th>Promo €</th><th>Qtà</th><th style="text-align:right">Totale</th></tr></thead>
+        <tbody id="tbody_anypro">
+          <tr data-unit="159" data-tiers="Basic 1:159|Basic 2-4:149|Basic 5-9:139|Plus 1:199|Plus 2-4:179|Plus 5-9:159|Premium 1:279|Premium 2-4:259|Premium 5-9:229">
+            <td class="col-voce">
+              <select class="anypro-plan" onchange="updateAnypro(this)" style="font-size:13px;padding:2px 4px;border:1px solid #d0d8e0;border-radius:4px;">
+                <option value="basic">Basic</option>
+                <option value="plus">Plus</option>
+                <option value="premium">Premium</option>
+              </select>
+              <button class="btn-clone" onclick="cloneRow(this)" title="Aggiungi riga">+</button>
+              <div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">versione / scaglioni ▾</button><div class="tier-detail" id="anypro-tier-detail">Basic: 1 → € 159,00 · 2-4 → € 149,00 · 5-9 → € 139,00</div></div>
+            </td>
+            <td class="col-listino anypro-listino">€ 159,00</td>
+            <td class="col-promo"><input type="text" inputmode="decimal" placeholder="promo" onchange="recalc()"></td>
+            <td class="col-qty"><input type="text" inputmode="numeric" value="0" class="qty" onchange="recalc()"></td>
+            <td class="col-tot">€ 0,00</td>
+          </tr>
+          <tr data-unit="20" id="row_suppl_anycat">
+            <td class="col-voce">Supplemento combinato ANYcat</td>
+            <td class="col-listino">€ 20,00</td>
+            <td class="col-promo"><input type="text" inputmode="decimal" placeholder="promo" onchange="recalc()"></td>
+            <td class="col-qty"><input type="text" inputmode="numeric" value="0" class="qty" onchange="recalc()"></td>
+            <td class="col-tot">€ 0,00</td>
+          </tr>
+          <tr data-unit="0.20" data-ricarica="1">
+            <td class="col-voce">Crediti Targhe ANYpro <button class="btn-clone" onclick="cloneRow(this)" title="Aggiungi riga">+</button><div class="tier-ref"><button class="tier-btn" onclick="toggleTier(this)">scaglioni ▾</button><div class="tier-detail">250 → € 0,20/cad · 500 → € 0,18/cad · 1.000 → € 0,16/cad · 2.000 → € 0,13/cad · 3.500 → € 0,12/cad · 5.000 → € 0,11/cad</div></div></td>
+            <td class="col-listino">€ 0,20/cad</td>
+            <td class="col-promo"><input type="text" inputmode="decimal" placeholder="promo" onchange="recalc()"></td>
+            <td class="col-qty"><input type="text" inputmode="numeric" value="0" class="qty" onchange="recalc()"></td>
+            <td class="col-tot">€ 0,00</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="5" style="padding:6px 10px;"><label style="font-size:11px;color:var(--light-gray);">Note:</label> <input type="text" class="section-note" placeholder="Eventuali note per ANYpro..." style="width:calc(100% - 50px);border:none;border-bottom:1px solid #e0e4e8;font-size:12px;padding:3px 4px;color:var(--body-gray);background:transparent;"></td></tr>
+          <tr class="totale-row"><td colspan="4">Subtotale servizi ANYpro</td><td class="col-tot" id="sub_anypro_servizi">€ 0,00</td></tr>
+          <tr class="totale-row"><td colspan="4">Subtotale crediti ricaricabili ANYpro</td><td class="col-tot" id="sub_anypro_ricariche">€ 0,00</td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Moduli -->
+    <div class="price-section section-excluded" id="sec_moduli">
+      <div class="section-header">
+        <label class="section-toggle"><input type="checkbox" onchange="document.getElementById('inc_moduli').checked=this.checked;toggleSection('sec_moduli',this.checked)"><span class="slider"></span></label>
+        <h3>Moduli Aggiuntivi</h3>
+        <span class="section-tag">escluso</span>
+      </div>
+      <table>
+        <thead><tr><th class="col-voce">Modulo</th><th class="th-listino col-listino">€/ut./anno</th><th>Promo €</th><th>Qtà utenti</th><th style="text-align:right">Totale</th></tr></thead>
+        <tbody id="tbody_moduli">
+          <tr data-unit="15"><td>ANYstock <button class="btn-clone" onclick="cloneRow(this)" title="Aggiungi riga">+</button></td><td class="col-listino">€ 15,00</td><td class="col-promo"><input type="text" inputmode="decimal" placeholder="promo" onchange="recalc()"></td><td class="col-qty"><input type="text" inputmode="numeric" value="0" class="qty" onchange="recalc()"></td><td class="col-tot">€ 0,00</td></tr>
+          <tr data-unit="15"><td>Ricerca Codici Multipli <button class="btn-clone" onclick="cloneRow(this)" title="Aggiungi riga">+</button></td><td class="col-listino">€ 15,00</td><td class="col-promo"><input type="text" inputmode="decimal" placeholder="promo" onchange="recalc()"></td><td class="col-qty"><input type="text" inputmode="numeric" value="0" class="qty" onchange="recalc()"></td><td class="col-tot">€ 0,00</td></tr>
+          <tr data-unit="80"><td>Info tecniche TecDoc <button class="btn-clone" onclick="cloneRow(this)" title="Aggiungi riga">+</button></td><td class="col-listino">€ 80,00</td><td class="col-promo"><input type="text" inputmode="decimal" placeholder="promo" onchange="recalc()"></td><td class="col-qty"><input type="text" inputmode="numeric" value="0" class="qty" onchange="recalc()"></td><td class="col-tot">€ 0,00</td></tr>
+          <tr data-unit="40"><td>Prezzi di listino al pubblico <button class="btn-clone" onclick="cloneRow(this)" title="Aggiungi riga">+</button></td><td class="col-listino">€ 40,00</td><td class="col-promo"><input type="text" inputmode="decimal" placeholder="promo" onchange="recalc()"></td><td class="col-qty"><input type="text" inputmode="numeric" value="0" class="qty" onchange="recalc()"></td><td class="col-tot">€ 0,00</td></tr>
+          <tr data-unit="120"><td>Condizioni di Vendita <button class="btn-clone" onclick="cloneRow(this)" title="Aggiungi riga">+</button></td><td class="col-listino">€ 120,00</td><td class="col-promo"><input type="text" inputmode="decimal" placeholder="promo" onchange="recalc()"></td><td class="col-qty"><input type="text" inputmode="numeric" value="0" class="qty" onchange="recalc()"></td><td class="col-tot">€ 0,00</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="5" style="padding:6px 10px;"><label style="font-size:11px;color:var(--light-gray);">Note:</label> <input type="text" class="section-note" placeholder="Eventuali note per Moduli..." style="width:calc(100% - 50px);border:none;border-bottom:1px solid #e0e4e8;font-size:12px;padding:3px 4px;color:var(--body-gray);background:transparent;"></td></tr>
+          <tr class="totale-row"><td colspan="4">Subtotale Moduli</td><td class="col-tot" id="sub_moduli">€ 0,00</td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Webservice -->
+    <div class="price-section section-excluded" id="sec_ws">
+      <div class="section-header">
+        <label class="section-toggle"><input type="checkbox" onchange="document.getElementById('inc_ws').checked=this.checked;toggleSection('sec_ws',this.checked)"><span class="slider"></span></label>
+        <h3>Webservice e Magazzino</h3>
+        <span class="section-tag">escluso</span>
+      </div>
+      <table>
+        <thead><tr><th class="col-voce">Servizio</th><th class="th-listino col-listino">Canone</th><th>Promo canone</th><th style="width:90px">Attivaz.</th><th>Promo att.</th><th>Qtà</th><th style="text-align:right">Totale</th></tr></thead>
+        <tbody id="tbody_ws">
+          <tr data-unit="420" data-att="50"><td class="col-voce">Collegamento Magazzino Webservice <button class="btn-clone" onclick="cloneRow(this)" title="Aggiungi riga">+</button></td><td class="col-listino">€ 420,00</td><td class="col-promo"><input type="text" inputmode="decimal" placeholder="promo" onchange="recalc()"></td><td class="col-listino">€ 50,00</td><td class="col-promo"><input type="text" inputmode="decimal" class="att-promo" placeholder="promo" onchange="recalc()"></td><td class="col-qty"><input type="text" inputmode="numeric" value="0" class="qty" onchange="recalc()"></td><td class="col-tot">€ 0,00</td></tr>
+          <tr data-unit="210" data-att="50"><td class="col-voce">Collegamento Magazzino FTP <button class="btn-clone" onclick="cloneRow(this)" title="Aggiungi riga">+</button></td><td class="col-listino">€ 210,00</td><td class="col-promo"><input type="text" inputmode="decimal" placeholder="promo" onchange="recalc()"></td><td class="col-listino">€ 50,00</td><td class="col-promo"><input type="text" inputmode="decimal" class="att-promo" placeholder="promo" onchange="recalc()"></td><td class="col-qty"><input type="text" inputmode="numeric" value="0" class="qty" onchange="recalc()"></td><td class="col-tot">€ 0,00</td></tr>
+          <tr data-unit="200" data-att="50"><td class="col-voce">Webservice ANYweb per ERP <button class="btn-clone" onclick="cloneRow(this)" title="Aggiungi riga">+</button></td><td class="col-listino">€ 200,00</td><td class="col-promo"><input type="text" inputmode="decimal" placeholder="promo" onchange="recalc()"></td><td class="col-listino">€ 50,00</td><td class="col-promo"><input type="text" inputmode="decimal" class="att-promo" placeholder="promo" onchange="recalc()"></td><td class="col-qty"><input type="text" inputmode="numeric" value="0" class="qty" onchange="recalc()"></td><td class="col-tot">€ 0,00</td></tr>
+          <tr data-unit="300" data-att="50"><td class="col-voce">Smartcross (Motore cross ERP) <button class="btn-clone" onclick="cloneRow(this)" title="Aggiungi riga">+</button></td><td class="col-listino">€ 300,00</td><td class="col-promo"><input type="text" inputmode="decimal" placeholder="promo" onchange="recalc()"></td><td class="col-listino">€ 50,00</td><td class="col-promo"><input type="text" inputmode="decimal" class="att-promo" placeholder="promo" onchange="recalc()"></td><td class="col-qty"><input type="text" inputmode="numeric" value="0" class="qty" onchange="recalc()"></td><td class="col-tot">€ 0,00</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="7" style="padding:6px 10px;"><label style="font-size:11px;color:var(--light-gray);">Note:</label> <input type="text" class="section-note" placeholder="Eventuali note per Webservice..." style="width:calc(100% - 50px);border:none;border-bottom:1px solid #e0e4e8;font-size:12px;padding:3px 4px;color:var(--body-gray);background:transparent;"></td></tr>
+          <tr class="totale-row"><td colspan="6">Subtotale Webservice</td><td class="col-tot" id="sub_ws">€ 0,00</td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div style="background:linear-gradient(135deg,var(--dark-bg) 0%,#243347 100%);border-radius:8px;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;margin-top:20px;box-shadow:0 4px 16px rgba(26,37,53,0.2);">
+      <span style="color:white;font-size:15px;font-weight:700;letter-spacing:0.3px;">TOTALE GENERALE <span style="font-weight:400;font-size:11px;opacity:0.7;">(IVA esclusa)</span></span>
+      <span id="grand_total" style="color:var(--green);font-size:22px;font-weight:700;">€ 0,00</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:13px;color:var(--body-gray);flex-wrap:wrap;gap:6px 20px;padding:10px 16px;background:var(--card-bg);border-radius:6px;border:1px solid #d0d8e0;">
+      <span>Costi di attivazione una tantum: <strong id="tot_att" style="color:var(--dark-bg);font-size:14px;">€ 0,00</strong></span>
+      <span>Costi canoni annuali: <strong id="tot_canone" style="color:var(--dark-bg);font-size:14px;">€ 0,00</strong></span>
+      <span>Costi ricariche: <strong id="tot_ricariche" style="color:var(--dark-bg);font-size:14px;">€ 0,00</strong> <em style="font-size:11px;color:var(--light-gray);">(non ricorrenti, variabili su richiesta)</em></span>
+    </div>
+
+    <div style="margin-top:24px;">
+      <h3 style="font-size:13px;color:var(--dark-bg);font-weight:700;margin-bottom:8px;">Modalità di pagamento</h3>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:280px;border:1px solid #d0d8e0;border-radius:6px;padding:8px 12px;background:var(--card-bg);display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span style="font-size:11px;font-weight:700;color:var(--dark-bg);white-space:nowrap;">Servizi e canoni:</span>
+          <label style="font-size:11px;color:var(--body-gray);display:flex;align-items:center;gap:3px;cursor:pointer;"><input type="radio" name="pag_servizi" value="bonifico" style="accent-color:var(--teal);"> Bonifico</label>
+          <label style="font-size:11px;color:var(--body-gray);display:flex;align-items:center;gap:3px;cursor:pointer;"><input type="radio" name="pag_servizi" value="riba" style="accent-color:var(--teal);"> Ri.Ba.</label>
+          <input type="text" class="pag-note" placeholder="Note..." style="flex:1;min-width:80px;border:1px solid #d0d8e0;border-radius:3px;padding:3px 6px;font-size:11px;color:var(--body-gray);">
+        </div>
+        <div style="flex:1;min-width:280px;border:1px solid #d0d8e0;border-radius:6px;padding:8px 12px;background:var(--card-bg);display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span style="font-size:11px;font-weight:700;color:var(--dark-bg);white-space:nowrap;">Ricariche:</span>
+          <label style="font-size:11px;color:var(--body-gray);display:flex;align-items:center;gap:3px;cursor:pointer;"><input type="radio" name="pag_ricariche" value="bonifico" style="accent-color:var(--teal);"> Bonifico</label>
+          <label style="font-size:11px;color:var(--body-gray);display:flex;align-items:center;gap:3px;cursor:pointer;"><input type="radio" name="pag_ricariche" value="riba" style="accent-color:var(--teal);"> Ri.Ba.</label>
+          <input type="text" class="pag-note" placeholder="Note..." style="flex:1;min-width:80px;border:1px solid #d0d8e0;border-radius:3px;padding:3px 6px;font-size:11px;color:var(--body-gray);">
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;">
+      <label style="font-size:12px;font-weight:700;color:var(--dark-bg);display:block;margin-bottom:6px;">Note generali</label>
+      <textarea id="note_generali" rows="3" placeholder="Eventuali note aggiuntive alla proposta..." style="width:100%;border:1px solid #d0d8e0;border-radius:6px;padding:10px 12px;font-size:13px;color:var(--body-gray);font-family:inherit;resize:vertical;background:var(--white);"></textarea>
+    </div>
+
+    <div class="notes">
+      <strong>Natura del documento:</strong> La presente proposta economica ha carattere puramente indicativo e non costituisce né sostituisce il contratto di abbonamento ai servizi.<br>
+      <strong>Configurazione Licenze:</strong> I servizi vengono configurati e tariffati su base utente e non a livello azienda.<br>
+      <strong>Prezzi:</strong> Tutti gli importi indicati si intendono IVA esclusa.<br>
+      <strong>Condizioni:</strong> Maggiori dettagli sono disponibili nei contratti di abbonamento.<br>
+      <strong>Riservatezza:</strong> Le informazioni, i prezzi e le condizioni commerciali contenute nella presente proposta sono strettamente riservati e confidenziali. È fatto divieto di divulgare, copiare o distribuire il presente documento a terzi senza previa autorizzazione scritta.
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-secondary" onclick="resetForm()">Azzera</button>
+      <button class="btn btn-primary" onclick="window.print()">Stampa / PDF</button>
+      <button class="btn btn-secondary" onclick="logout()" style="margin-left:auto;color:#c0392b;border-color:#c0392b;">Esci</button>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span><strong>ENGINET s.r.l.</strong></span>
+    <span>+39 090 397 3234</span>
+    <span>amministrazione@enginet.biz</span>
+  </div>
 </div>
 
-</main>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.12.2/firebase-app-compat.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.12.2/firebase-database-compat.min.js"></script>
 <script>
-'use strict';
-
-// ═══════════════════════════════════════
-// CONFIGURAZIONE
-// ═══════════════════════════════════════
-var CFG = {
-  PIN: '74GM@73GC',
-  PIN_MAX: 4,
-  OTP_MAX: 4,
-  EMAIL: 'lucacq@me.com',
-  DB_URL: 'https://carioca-cq-default-rtdb.europe-west1.firebasedatabase.app'
+const REGIONI_PROVINCE = {
+  "Abruzzo":["AQ","CH","PE","TE"],
+  "Basilicata":["MT","PZ"],
+  "Calabria":["CZ","CS","KR","RC","VV"],
+  "Campania":["AV","BN","CE","NA","SA"],
+  "Emilia-Romagna":["BO","FE","FC","MO","PR","PC","RA","RE","RN"],
+  "Friuli Venezia Giulia":["GO","PN","TS","UD"],
+  "Lazio":["FR","LT","RI","RM","VT"],
+  "Liguria":["GE","IM","SP","SV"],
+  "Lombardia":["BG","BS","CO","CR","LC","LO","MN","MI","MB","PV","SO","VA"],
+  "Marche":["AN","AP","FM","MC","PU"],
+  "Molise":["CB","IS"],
+  "Piemonte":["AL","AT","BI","CN","NO","TO","VB","VC"],
+  "Puglia":["BA","BT","BR","FG","LE","TA"],
+  "Sardegna":["CA","NU","OR","SS","SU"],
+  "Sicilia":["AG","CL","CT","EN","ME","PA","RG","SR","TP"],
+  "Toscana":["AR","FI","GR","LI","LU","MS","PI","PO","PT","SI"],
+  "Trentino-Alto Adige":["BZ","TN"],
+  "Umbria":["PG","TR"],
+  "Valle d'Aosta":["AO"],
+  "Veneto":["BL","PD","RO","TV","VE","VI","VR"]
 };
 
-var MANI = {
-  normale:[
-    {n:'Coppia figurata',    d:'Una coppia di figure'},
-    {n:'Doppia coppia',      d:'Coppia figurata + coppia normale'},
-    {n:'Tris',               d:'Tre carte dello stesso valore'},
-    {n:'Full',               d:'Tris + coppia'},
-    {n:'Poker',              d:'Quattro carte dello stesso valore'},
-    {n:'Scala reale',        d:'Cinque carte dello stesso seme in sequenza'},
-    {n:'Scala quaranta',     d:'Scala da 40 punti'},
-    {n:'Bomba',              d:'Scala reale + poker'},
-    {n:'Trik',               d:'Coppia figurata + tris + scaletta a 3 carte'},
-    {n:'Chiusura in mano',   d:'Chiudi senza scartare — solo carte non composte'},
-  ],
-  completa:[
-    {n:'Coppia figurata',    d:'Una coppia di figure'},
-    {n:'Doppia coppia',      d:'Coppia figurata + coppia normale'},
-    {n:'Doppia coppia fig.', d:'Due coppie di figure'},
-    {n:'Tris',               d:'Tre carte dello stesso valore'},
-    {n:'Full',               d:'Tris + coppia'},
-    {n:'Poker',              d:'Quattro carte dello stesso valore'},
-    {n:'Doppio poker',       d:'Due poker'},
-    {n:'Scala reale',        d:'Cinque carte dello stesso seme in sequenza'},
-    {n:'Scala quaranta',     d:'Scala da 40 punti'},
-    {n:'Bomba',              d:'Scala reale + poker'},
-    {n:'Trik',               d:'Coppia figurata + tris + scaletta a 3 carte'},
-    {n:'Chiusura in mano',   d:'Chiudi senza scartare — solo carte non composte'},
-  ]
-};
-
-var COLORS=[
-  {bg:'#dbeafe',tx:'#1e40af'},
-  {bg:'#dcfce7',tx:'#15803d'},
-  {bg:'#fce7f3',tx:'#9d174d'},
-  {bg:'#fef9c3',tx:'#854d0e'},
-  {bg:'#ede9fe',tx:'#6d28d9'},
-  {bg:'#ffedd5',tx:'#c2410c'},
-];
-
-// ═══════════════════════════════════════
-// STATO APPLICAZIONE
-// ═══════════════════════════════════════
-var S = {
-  arb: false,          // è arbitro?
-  nome: null,          // nome giocatore (anche se arbitro)
-  gs: null,            // gamestate da Firebase
-  mano: 0,             // mano selezionata
-  md: {},              // dati inserimento punti
-  nomeScelto: null,    // nome scelto nella schermata nomi
-  fbListener: null,    // riferimento listener Firebase
-};
-
-// ═══════════════════════════════════════
-// FIREBASE
-// ═══════════════════════════════════════
-firebase.initializeApp({databaseURL: CFG.DB_URL});
-var DB = firebase.database().ref('partita');
-
-function fbOn(){
-  if(S.fbListener) return; // già attivo
-  S.fbListener = DB.on('value', onFB);
+function toggleTier(btn) {
+  const detail = btn.nextElementSibling;
+  const open = detail.classList.toggle('open');
+  btn.textContent = btn.textContent.replace(open ? '▾' : '▴', open ? '▴' : '▾');
 }
 
-function fbOff(){
-  if(S.fbListener){
-    DB.off('value', S.fbListener);
-    S.fbListener = null;
-  }
-}
-
-function onFB(snap){
-  S.gs = snap.val();
-
-  // logout forzato se OTP cambiata (nuova partita avviata dall'arbitro)
-  if(!S.arb && S.nome){
-    var salvata = ls('otp_pid');
-    var ora = S.gs ? S.gs.otp : null;
-    if(!ora || (salvata && ora !== salvata)){
-      logout(); return;
-    }
-  }
-
-  var p = pag();
-  if(p === 'pBenv')   return; // non interrompere benvenuto
-  if(p === 'pAttesa'){
-    // controlla autorizzazione
-    if(S.gs && S.nome && S.gs.autorizzati && S.gs.autorizzati[S.nome] === true){
-      mostraBenv();
-    }
-    return;
-  }
-  if(p === 'pGame')   { disegnaGame();   return; }
-  if(p === 'pFin')    { disegnaFin();    return; }
-  if(p === 'pHome')   { disegnaHome();   return; }
-  // su schermate di accesso non fare nulla
-  if(['pRuolo','pPin','pOtp','pNome','pArbGioca'].indexOf(p) >= 0) return;
-
-  route();
-}
-
-// ═══════════════════════════════════════
-// NAVIGAZIONE
-// ═══════════════════════════════════════
-var PAGES = ['pLoad','pRuolo','pPin','pArbGioca','pOtp','pNome','pAttesa','pBenv','pHome','pSetup','pGame','pFin'];
-
-function pag(){
-  for(var i=0;i<PAGES.length;i++){
-    var el=document.getElementById(PAGES[i]);
-    if(el && el.classList.contains('on')) return PAGES[i];
-  }
-  return '';
-}
-
-function vai(id){
-  PAGES.forEach(function(p){
-    var el=document.getElementById(p);
-    if(el) el.classList.remove('on');
-  });
-  var t=document.getElementById(id);
-  if(t) t.classList.add('on');
-}
-
-function route(){
-  if(!S.gs){
-    if(S.arb){ vai('pSetup'); initSetup(); }
-    else { vai('pLoad'); setMsg('In attesa che l\'arbitro avvii la partita…'); }
-    return;
-  }
-  if(S.gs.fase === 'fine'){ vai('pFin'); disegnaFin(); return; }
-  if(S.arb){ vai('pGame'); disegnaGame(); return; }
-  if(!S.nome){ vai('pLoad'); setMsg('In attesa di autorizzazione…'); return; }
-  var auth = S.gs.autorizzati && S.gs.autorizzati[S.nome] === true;
-  if(auth){ vai('pGame'); disegnaGame(); }
-  else { mostraAttesa(); }
-}
-
-function setMsg(t){ var el=document.getElementById('loadMsg'); if(el) el.textContent=t; }
-
-// ═══════════════════════════════════════
-// LOGO / HOME
-// ═══════════════════════════════════════
-document.getElementById('logo').onclick = function(){
-  if(S.arb || S.nome){ vai('pHome'); disegnaHome(); }
-};
-
-function goHome(){
-  if(S.arb || S.nome){ vai('pHome'); disegnaHome(); }
-  else vai('pRuolo');
-}
-
-// ═══════════════════════════════════════
-// BOOT
-// ═══════════════════════════════════════
-(function boot(){
-  var cr = ls('cr'), ob = ls('otp_blk'), pb = ls('pin_blk');
-  // mostra sblocca se c'è qualcosa salvato
-  if(cr || ob || pb || ls('otp_pid')){
-    show('sbloccaWrap');
-  }
-  if(cr === '1'){
-    S.arb = true; S.nome = ls('nome_g') || null;
-    aggiornaBadge(); fbOn();
-    vai('pLoad'); setMsg('Connessione…');
-  } else if(cr === '0' && !ob){
-    var pid = ls('otp_pid'), ng = ls('nome_g');
-    if(pid && ng){
-      vai('pLoad'); setMsg('Verifica sessione…');
-      DB.once('value').then(function(snap){
-        var d = snap.val();
-        // se non c'è partita o è conclusa o OTP diversa → disconnetti
-        if(!d || !d.otp || d.otp !== pid || d.fase === 'fine'){
-          pulisciSessione(); vai('pRuolo'); return;
-        }
-        S.nome = ng; aggiornaBadge(); fbOn();
-        S.gs = d;
-        if(d.autorizzati && d.autorizzati[ng]){
-          route();
-        } else {
-          mostraAttesa();
-        }
-      }).catch(function(){ pulisciSessione(); vai('pRuolo'); });
-    } else {
-      pulisciSessione(); vai('pRuolo');
-    }
-  } else {
-    vai('pRuolo');
-  }
-})();
-
-// ═══════════════════════════════════════
-// BADGE
-// ═══════════════════════════════════════
-function aggiornaBadge(){
-  var b = document.getElementById('badge');
-  var bc = document.getElementById('btnCambia');
-  if(S.arb && S.nome){
-    var idx = indiceGioc(S.nome);
-    var c = COLORS[idx % COLORS.length];
-    b.textContent = 'arbitro · ' + S.nome;
-    b.style.background = 'linear-gradient(90deg,#dcfce7 50%,' + c.bg + ' 100%)';
-    b.style.color = '#15803d'; b.style.borderColor = '#86efac';
-  } else if(S.arb){
-    b.textContent = 'arbitro';
-    b.style.background = '#dcfce7'; b.style.color = '#15803d'; b.style.borderColor = '#86efac';
-  } else if(S.nome){
-    var idx = indiceGioc(S.nome);
-    var c = COLORS[idx % COLORS.length];
-    b.textContent = S.nome;
-    b.style.background = c.bg; b.style.color = c.tx; b.style.borderColor = c.tx;
-  } else {
-    b.textContent = '—'; b.style.background = '#f0eee9'; b.style.color = '#78716c'; b.style.borderColor = '#ddd';
-  }
-  bc.style.display = (S.arb || S.nome) ? '' : 'none';
-}
-
-function indiceGioc(nome){
-  if(!S.gs || !S.gs.players) return 0;
-  var pl = arr(S.gs.players); var i = pl.indexOf(nome); return i >= 0 ? i : 0;
-}
-
-// ═══════════════════════════════════════
-// CAMBIA RUOLO / LOGOUT
-// ═══════════════════════════════════════
-function cambia(){
-  fbOff(); pulisciSessione(); logout();
-}
-
-function logout(){
-  fbOff();
-  S.arb = false; S.nome = null; S.gs = null; S.md = {}; S.mano = 0; S.nomeScelto = null;
-  aggiornaBadge(); vai('pRuolo');
-}
-
-function pulisciSessione(){
-  ['cr','otp_pid','otp_t','otp_blk','nome_g','pin_t'].forEach(function(k){ localStorage.removeItem(k); });
-}
-
-function sblocca(){
-  if(!confirm('Rimuovere la sessione salvata su questo dispositivo?')) return;
-  ['cr','otp_pid','otp_t','otp_blk','nome_g','pin_t','pin_blk'].forEach(function(k){ localStorage.removeItem(k); });
-  location.reload();
-}
-
-// ═══════════════════════════════════════
-// PIN ARBITRO
-// ═══════════════════════════════════════
-var pinVis = false;
-function vaiPin(){
-  if(ls('pin_blk')){
-    vai('pPin');
-    var e = document.getElementById('pinErr');
-    e.innerHTML = 'Accesso bloccato. <a href="#" onclick="recuperaPin()" style="color:#2563eb">Recupera accesso →</a>';
-    document.getElementById('pinInp').disabled = true;
-    return;
-  }
-  vai('pPin');
-  pinVis = false;
-  var inp = document.getElementById('pinInp');
-  inp.type = 'password'; inp.value = ''; inp.disabled = false;
-  document.getElementById('eyeBtn').textContent = '👁';
-  document.getElementById('pinErr').textContent = '';
-  var t = parseInt(ls('pin_t') || '0');
-  if(t > 0) document.getElementById('pinErr').textContent = 'Tentativi rimanenti: ' + (CFG.PIN_MAX - t);
-  setTimeout(function(){ inp.focus(); }, 100);
-}
-
-function toggleEye(){
-  pinVis = !pinVis;
-  var inp = document.getElementById('pinInp');
-  inp.type = pinVis ? 'text' : 'password';
-  document.getElementById('eyeBtn').textContent = pinVis ? '🙈' : '👁';
-}
-
-document.getElementById('pinInp').addEventListener('keydown', function(e){ if(e.key==='Enter') checkPin(); });
-
-function checkPin(){
-  if(ls('pin_blk')){ return; }
-  var v = document.getElementById('pinInp').value.toUpperCase().replace(/[^A-Z0-9@]/g,'');
-  if(!v){ document.getElementById('pinErr').textContent='Inserisci il codice.'; return; }
-  vai('pLoad'); setMsg('Verifica…');
-  // legge il PIN da Firebase invece che dal codice
-  firebase.database().ref('config/pin').once('value').then(function(snap){
-    var pinDB = snap.val();
-    // fallback al PIN locale se Firebase non ha config
-    var pinOk = pinDB ? String(pinDB) : CFG.PIN;
-    if(v === pinOk){
-      localStorage.removeItem('pin_t');
-      S.arb = true; lsSet('cr','1'); aggiornaBadge();
-      DB.child('players').once('value').then(function(snap2){
-        var pl = snap2.val();
-        if(pl){ var players=arr(pl); if(players.length>0){ mostraArbGioca(players); return; } }
-        fbOn();
-      }).catch(function(){ fbOn(); });
-    } else {
-      vai('pPin');
-      var t = parseInt(ls('pin_t') || '0') + 1;
-      lsSet('pin_t', t);
-      var rim = CFG.PIN_MAX - t;
-      if(rim <= 0){
-        lsSet('pin_blk','1');
-        document.getElementById('pinErr').innerHTML =
-          'Accesso bloccato. <a href="#" onclick="recuperaPin()" style="color:#2563eb">Recupera accesso →</a>';
-        document.getElementById('pinInp').disabled = true;
-      } else {
-        document.getElementById('pinErr').textContent = 'Codice errato. Tentativi rimanenti: ' + rim;
-        document.getElementById('pinInp').value = '';
-        document.getElementById('pinInp').focus();
-      }
-    }
-  }).catch(function(){
-    // errore Firebase — usa PIN locale come fallback
-    vai('pPin');
-    document.getElementById('pinErr').textContent = 'Errore di connessione. Riprova.';
+function initRegioni() {
+  const sel = document.getElementById('regione');
+  Object.keys(REGIONI_PROVINCE).sort().forEach(r => {
+    const o = document.createElement('option');
+    o.value = r; o.textContent = r;
+    sel.appendChild(o);
   });
 }
 
-function recuperaPin(){
-  var sogg = encodeURIComponent('Carioca — Recupero accesso arbitro');
-  var corpo = encodeURIComponent('Per sbloccare, apri la console del browser (F12) e incolla:\n\nlocalStorage.removeItem(\'pin_blk\'); localStorage.removeItem(\'pin_t\'); location.reload();');
-  window.location.href = 'mailto:' + CFG.EMAIL + '?subject=' + sogg + '&body=' + corpo;
-}
-
-function mostraArbGioca(players){
-  vai('pArbGioca');
-  var list = document.getElementById('arbNomi'); list.innerHTML = '';
-  players.forEach(function(p){
-    var btn = document.createElement('button');
-    btn.className = 'nbtn'; btn.textContent = p;
-    btn.onclick = function(){
-      S.nome = p; lsSet('nome_g', p); aggiornaBadge(); fbOn();
-    };
-    list.appendChild(btn);
-  });
-}
-
-function arbSolo(){ S.nome = null; localStorage.removeItem('nome_g'); aggiornaBadge(); fbOn(); }
-
-function arbReset(){
-  if(!confirm('Resettare la partita? Tutti i punteggi andranno persi.')) return;
-  S.gs = null; S.md = {}; S.mano = 0; S.nome = null;
-  localStorage.removeItem('nome_g');
-  aggiornaBadge();
-  fbOff();
-  DB.remove().then(function(){
-    fbOn();
-    vai('pSetup'); initSetup();
-  });
-}
-
-// ═══════════════════════════════════════
-// OTP GIOCATORE
-// ═══════════════════════════════════════
-function vaiOtp(){
-  if(ls('otp_blk')){
-    alert('Accesso bloccato dopo troppi tentativi.\nChiedi all\'arbitro di avviare una nuova partita per ottenere un nuovo codice.');
+function updateProvince() {
+  const reg = document.getElementById('regione').value;
+  const prov = document.getElementById('provincia');
+  prov.innerHTML = '';
+  if (!reg) {
+    prov.innerHTML = '<option value="">— prima seleziona regione —</option>';
+    prov.disabled = true;
     return;
   }
-  vai('pOtp');
-  // costruisce 8 caselle
-  var row = document.getElementById('otpRow'); row.innerHTML = '';
-  for(var i=0;i<8;i++){
-    var inp = document.createElement('input');
-    inp.type = 'tel'; inp.maxLength = 1; inp.className = 'odig'; inp.id = 'o'+i;
-    inp.addEventListener('input', (function(idx,el){ return function(){
-      el.value = el.value.replace(/\D/g,'').slice(-1);
-      if(el.value && idx<7) document.getElementById('o'+(idx+1)).focus();
-    }; })(i,inp));
-    inp.addEventListener('keydown', (function(idx,el){ return function(e){
-      if(e.key==='Backspace' && !el.value && idx>0) document.getElementById('o'+(idx-1)).focus();
-      if(e.key==='Enter') checkOtp();
-    }; })(i,inp));
-    row.appendChild(inp);
-  }
-  document.getElementById('otpErr').textContent = '';
-  var t = parseInt(ls('otp_t')||'0');
-  if(t>0) document.getElementById('otpErr').textContent = 'Tentativi rimanenti: '+(CFG.OTP_MAX-t);
-  setTimeout(function(){ var el=document.getElementById('o0'); if(el) el.focus(); }, 100);
+  prov.disabled = false;
+  prov.innerHTML = '<option value="">— selezionare —</option>';
+  (REGIONI_PROVINCE[reg]||[]).forEach(p => {
+    const o = document.createElement('option');
+    o.value = p; o.textContent = p;
+    prov.appendChild(o);
+  });
 }
 
-function checkOtp(){
-  var ins = '';
-  for(var i=0;i<8;i++){ var el=document.getElementById('o'+i); ins += el ? (el.value||'') : ''; }
-  if(ins.length < 8){ document.getElementById('otpErr').textContent='Inserisci tutte le 8 cifre.'; return; }
-  vai('pLoad'); setMsg('Verifica codice…');
-  DB.child('otp').once('value').then(function(snap){
-    var ora = snap.val();
-    if(!ora){ vai('pOtp'); document.getElementById('otpErr').textContent='Nessuna partita in corso. Attendi l\'arbitro.'; return; }
-    if(ins === String(ora)){
-      lsSet('otp_pid', String(ora)); localStorage.removeItem('otp_t'); localStorage.removeItem('otp_blk');
-      mostraNome();
-    } else {
-      var t = parseInt(ls('otp_t')||'0')+1; lsSet('otp_t',t);
-      var rim = CFG.OTP_MAX-t;
-      vai('pOtp');
-      if(rim<=0){
-        lsSet('otp_blk','1');
-        document.getElementById('otpErr').textContent='Accesso bloccato — troppi tentativi. Chiedi un nuovo codice all\'arbitro.';
-        setTimeout(function(){ vai('pRuolo'); }, 2000);
-      } else {
-        document.getElementById('otpErr').textContent='Codice errato. Tentativi rimanenti: '+rim;
-        for(var j=0;j<8;j++){ var d=document.getElementById('o'+j); if(d) d.value=''; }
-        var d0=document.getElementById('o0'); if(d0) d0.focus();
-      }
-    }
-  }).catch(function(){ vai('pOtp'); document.getElementById('otpErr').textContent='Errore di connessione. Riprova.'; });
+function fmt(n) {
+  const parts = n.toFixed(2).split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return '€ ' + parts[0] + ',' + parts[1];
 }
 
-// ═══════════════════════════════════════
-// SCELTA NOME
-// ═══════════════════════════════════════
-function mostraNome(){
-  DB.once('value').then(function(snap){
-    var d = snap.val();
-    if(!d || !d.players){ vai('pOtp'); document.getElementById('otpErr').textContent='Errore. Riprova.'; return; }
-    var players = arr(d.players);
-    vai('pNome');
-    S.nomeScelto = null;
-    document.getElementById('btnNomeOk').disabled = true;
-    var list = document.getElementById('nomeList'); list.innerHTML = '';
-    players.forEach(function(p){
-      var btn = document.createElement('button');
-      btn.className = 'nbtn'; btn.textContent = p;
-      btn.onclick = function(){
-        document.querySelectorAll('.nlist .nbtn').forEach(function(b){ b.classList.remove('sel'); });
-        btn.classList.add('sel');
-        S.nomeScelto = p;
-        document.getElementById('btnNomeOk').disabled = false;
-      };
-      list.appendChild(btn);
+function toggleSection(id, on) {
+  const sec = document.getElementById(id);
+  if (!sec) return;
+  sec.classList.toggle('section-excluded', !on);
+  sec.querySelector('.section-tag').textContent = on ? 'incluso' : 'escluso';
+  const t = sec.querySelector('.section-toggle input');
+  if (t) t.checked = on;
+  recalc();
+}
+
+const ANYPRO_PLANS = {
+  basic:   { unit: 159, tiers: '1 → € 159,00 · 2-4 → € 149,00 · 5-9 → € 139,00' },
+  plus:    { unit: 199, tiers: '1 → € 199,00 · 2-4 → € 179,00 · 5-9 → € 159,00' },
+  premium: { unit: 279, tiers: '1 → € 279,00 · 2-4 → € 259,00 · 5-9 → € 229,00' }
+};
+
+function updateAnypro(sel) {
+  const row = sel.closest('tr');
+  const plan = ANYPRO_PLANS[sel.value] || ANYPRO_PLANS.basic;
+  row.dataset.unit = plan.unit;
+  row.querySelector('.anypro-listino').textContent = fmt(plan.unit);
+  const detail = document.getElementById('anypro-tier-detail');
+  if (detail) detail.innerHTML = sel.value.charAt(0).toUpperCase() + sel.value.slice(1) + ': ' + plan.tiers;
+  recalc();
+}
+
+// Parse Italian-formatted number (1.234,56 → 1234.56)
+function parseIT(str) {
+  if (!str || typeof str !== 'string') return parseFloat(str) || NaN;
+  return parseFloat(str.replace(/\./g, '').replace(',', '.'));
+}
+// Format number to Italian input display (with thousand sep, 2 decimals)
+function fmtInput(n) {
+  const parts = n.toFixed(2).split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return parts[0] + ',' + parts[1];
+}
+
+// Parse Italian-formatted integer (1.500 → 1500)
+function parseIntIT(str) {
+  if (!str || typeof str !== 'string') return parseInt(str) || 0;
+  return parseInt(str.replace(/\./g, '')) || 0;
+}
+// Format integer with thousand sep
+function fmtQty(n) {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+function getPrice(row) {
+  const promo = row.querySelector('.col-promo input');
+  const promoVal = promo ? parseIT(promo.value) : NaN;
+  if (!isNaN(promoVal) && promoVal > 0) return promoVal;
+  return parseFloat(row.dataset.unit) || 0;
+}
+
+function recalc() {
+  const hideEmpty = document.getElementById('hide_empty').checked;
+  let subCat=0, subPro=0, subMod=0, subWsAtt=0, subWsCanone=0;
+  let totRicariche = 0;
+
+  // Helper: somma ricariche di un tbody (per sottrarre se sezione off)
+  function calcRicariche(tbodyId) {
+    let r = 0;
+    document.querySelectorAll('#'+tbodyId+' tr[data-ricarica="1"]').forEach(row => {
+      const qty = parseIntIT(row.querySelector('.qty')?.value || '0');
+      const price = qty > 0 ? getPrice(row) : 0;
+      r += qty * price;
     });
-  }).catch(function(){ vai('pOtp'); document.getElementById('otpErr').textContent='Errore. Riprova.'; });
-}
-
-function confermaNome(){
-  if(!S.nomeScelto) return;
-  S.nome = S.nomeScelto; lsSet('cr','0'); lsSet('nome_g', S.nome); aggiornaBadge();
-  DB.child('attesa/'+S.nome).set({nome:S.nome, ts:Date.now()});
-  fbOn(); mostraAttesa();
-}
-
-// ═══════════════════════════════════════
-// SALA ATTESA
-// ═══════════════════════════════════════
-function mostraAttesa(){
-  vai('pAttesa');
-  document.getElementById('attesaMsg').textContent = 'Ciao ' + S.nome + '! Hai inserito il codice corretto. Attendi che l\'arbitro ti autorizzi a sederti al tavolo.';
-}
-
-function mostraBenv(){
-  DB.once('value').then(function(snap){
-    var d = snap.val(); if(!d) return;
-    var players = arr(d.players);
-    vai('pBenv');
-    document.getElementById('benvInfo').innerHTML =
-      '<strong>Giocatori al tavolo:</strong><br>' +
-      players.map(function(p,i){ return (i+1)+'. '+esc(p); }).join('<br>') +
-      '<br><br><strong>1° mazziere:</strong> ' + esc(d.mazziere);
-  });
-}
-
-function entra(){ route(); }
-
-// ═══════════════════════════════════════
-// SETUP
-// ═══════════════════════════════════════
-function selVar(el){
-  document.querySelectorAll('.vbtn').forEach(function(b){ b.classList.remove('sel'); });
-  el.classList.add('sel');
-}
-
-function initSetup(){
-  var list = document.getElementById('plist'); list.innerHTML = '';
-  for(var i=1;i<=6;i++){
-    var wrap = document.createElement('div'); wrap.className = 'prow';
-    var num = document.createElement('span'); num.className = 'pnum'; num.textContent = i;
-    var inp = document.createElement('input'); inp.type = 'text'; inp.id = 'gi'+i;
-    inp.placeholder = i>4 ? 'opzionale' : 'Giocatore '+i; inp.autocomplete = 'off';
-    var mw = document.createElement('div'); mw.style.cssText = 'display:flex;align-items:center;gap:5px;flex-shrink:0';
-    var r = document.createElement('input'); r.type='radio'; r.name='maz'; r.value=i; r.id='maz'+i; if(i===1) r.checked=true;
-    var lb = document.createElement('label'); lb.htmlFor='maz'+i; lb.style.cssText='font-size:11px;color:#57534e'; lb.textContent='mazziere';
-    mw.appendChild(r); mw.appendChild(lb);
-    wrap.appendChild(num); wrap.appendChild(inp); wrap.appendChild(mw);
-    list.appendChild(wrap);
+    return r;
   }
-}
 
-function startGame(){
-  var variante = document.querySelector('.vbtn.sel').dataset.v;
-  var players = [];
-  for(var i=1;i<=6;i++){
-    var v=(document.getElementById('gi'+i).value||'').trim(); if(v) players.push(v);
-  }
-  if(players.length < 4){ alert('Inserisci almeno 4 giocatori.'); return; }
-  var mazEl = document.querySelector('input[name="maz"]:checked');
-  var mazIdx = mazEl ? parseInt(mazEl.value)-1 : 0;
-  var mazziere = players[Math.min(mazIdx, players.length-1)];
-  var mani = MANI[variante]; var nM = mani.length;
-  var scores={}, stars={};
-  players.forEach(function(p){
-    scores[p]={}; stars[p]={};
-    for(var i=0;i<nM;i++){ scores[p][i]=null; stars[p][i]=false; }
-  });
-  S.mano=0; S.md={};
-  var otp = genOtp();
-  vai('pLoad'); setMsg('Avvio partita…');
-  DB.set({
-    variante:variante, players:players, mazziere:mazziere,
-    maniN:mani.map(function(m){return m.n;}),
-    maniD:mani.map(function(m){return m.d;}),
-    scores:scores, stars:stars, fase:'gioco',
-    otp:otp, manoSel:0, attesa:{}, autorizzati:{}
-  });
-  // fbOn è già attivo, l'aggiornamento arriva via onFB
-}
-
-// ═══════════════════════════════════════
-// GIOCO
-// ═══════════════════════════════════════
-function disegnaGame(){
-  if(!S.gs) return;
-  var players = arr(S.gs.players);
-  var maniN   = arr(S.gs.maniN);
-  var maniD   = arr(S.gs.maniD);
-  var nM = maniN.length;
-
-  // mano selezionata da Firebase
-  S.mano = (S.gs.manoSel !== undefined && S.gs.manoSel !== null) ? S.gs.manoSel : 0;
-  if(S.mano >= nM) S.mano = 0;
-
-  document.getElementById('mCnt').textContent  = 'Mano '+(S.mano+1)+' di '+nM;
-  document.getElementById('mNome').textContent = maniN[S.mano] || '';
-  document.getElementById('mDesc').textContent = maniD[S.mano] || '';
-
-  var ps = document.getElementById('pinpSec');
-  var sn = document.getElementById('spectNote');
-  var ob = document.getElementById('otpBan');
-  var br = document.getElementById('btnReset');
-
-  if(S.arb){
-    ps.style.display=''; sn.style.display='none';
-    if(S.gs.otp){ ob.style.display=''; document.getElementById('otpDisp').textContent=S.gs.otp; }
-    if(br) br.style.display='';
-    disegnaPunti(players, maniN, nM);
-  } else {
-    ps.style.display='none'; sn.style.display=''; ob.style.display='none';
-    if(br) br.style.display='none';
-  }
-  disegnaGrid(players, maniN, nM);
-}
-
-function selMano(idx){
-  if(!S.arb) return;
-  S.md = {}; // reset input quando si cambia mano
-  DB.child('manoSel').set(idx);
-}
-
-function disegnaPunti(players, maniN, nM){
-  var cont = document.getElementById('pinpList'); cont.innerHTML='';
-  // init MD se mano diversa
-  if(S.md._m !== S.mano){
-    S.md = {_m: S.mano};
-    players.forEach(function(p){
-      var sc = farr(S.gs.scores && S.gs.scores[p], nM);
-      var st = farr(S.gs.stars  && S.gs.stars[p],  nM);
-      S.md[p] = {
-        punti: sc[S.mano] !== null && sc[S.mano] !== undefined ? Number(sc[S.mano]) : null,
-        star:  st[S.mano] || false
-      };
+  // Generic row calc — restituisce {total, servizi, ricariche}
+  function calcRows(tbodyId) {
+    let servizi = 0, ricariche = 0;
+    document.querySelectorAll('#'+tbodyId+' tr').forEach(row => {
+      const qtyInput = row.querySelector('.qty');
+      const qty = parseIntIT(qtyInput ? qtyInput.value : '0');
+      const price = qty > 0 ? getPrice(row) : 0;
+      const total = qty * price;
+      const totCell = row.querySelector('.col-tot');
+      if (totCell) totCell.textContent = fmt(total);
+      row.classList.toggle('row-hidden-print', hideEmpty && qty === 0);
+      if (row.dataset.ricarica === '1') {
+        ricariche += total;
+      } else {
+        servizi += total;
+      }
     });
+    totRicariche += ricariche;
+    return { total: servizi + ricariche, servizi, ricariche };
   }
-  players.forEach(function(p, pidx){
-    var row = document.createElement('div'); row.className='pinp-row';
-    var nm  = document.createElement('div'); nm.className='pinp-name';
-    nm.innerHTML = pillH(p, pidx);
-    var sb = document.createElement('button');
-    sb.className='starbtn'+(S.md[p].star?' on':''); sb.type='button'; sb.textContent='★'; sb.title='ha chiuso';
-    sb.onclick=(function(pp){ return function(){
-      if(!S.md[pp].star) players.forEach(function(q){ S.md[q].star=false; });
-      S.md[pp].star=!S.md[pp].star;
-      if(S.md[pp].star) S.md[pp].punti=0;
-      disegnaPunti(players,maniN,nM);
-    }; })(p);
-    var nw=document.createElement('div'); nw.className='nwrap';
-    var bm=document.createElement('button'); bm.className='nbtn2'; bm.type='button'; bm.textContent='−';
-    var iv=document.createElement('input');
-    iv.className='nval'; iv.type='number'; iv.min='0'; iv.inputMode='numeric';
-    iv.value=S.md[p].punti!==null?S.md[p].punti:''; iv.placeholder='0'; iv.disabled=S.md[p].star;
-    var bp=document.createElement('button'); bp.className='nbtn2'; bp.type='button'; bp.textContent='+';
-    bm.onclick=(function(pp,el){ return function(){ if(S.md[pp].star)return; S.md[pp].punti=Math.max(0,(S.md[pp].punti||0)-5); el.value=S.md[pp].punti; }; })(p,iv);
-    bp.onclick=(function(pp,el){ return function(){ if(S.md[pp].star)return; S.md[pp].punti=(S.md[pp].punti||0)+5; el.value=S.md[pp].punti; }; })(p,iv);
-    iv.oninput=(function(pp,el){ return function(){ S.md[pp].punti=el.value===''?null:(parseInt(el.value)||0); }; })(p,iv);
-    nw.appendChild(bm); nw.appendChild(iv); nw.appendChild(bp);
-    row.appendChild(nm); row.appendChild(sb); row.appendChild(nw);
-    cont.appendChild(row);
-  });
-}
 
-function conferma(){
-  if(!S.gs || !S.arb) return;
-  var players = arr(S.gs.players);
-  var maniN   = arr(S.gs.maniN);
-  var nM = maniN.length;
-  var upd = {};
-  players.forEach(function(p){
-    var punti = S.md[p] && S.md[p].star ? 0 : (S.md[p] && S.md[p].punti!==null ? S.md[p].punti : null);
-    var star  = S.md[p] ? S.md[p].star||false : false;
-    upd['scores/'+p+'/'+S.mano] = punti;
-    upd['stars/'+p+'/'+S.mano]  = star;
-  });
-  // controlla se tutte le mani sono complete
-  var tmp = {};
-  players.forEach(function(p){
-    tmp[p] = farr(S.gs.scores && S.gs.scores[p], nM).slice();
-    tmp[p][S.mano] = S.md[p] && S.md[p].star ? 0 : (S.md[p] && S.md[p].punti!==null ? S.md[p].punti : null);
-  });
-  var fine = true;
-  outer: for(var i=0;i<nM;i++){
-    for(var j=0;j<players.length;j++){
-      if(tmp[players[j]][i]===null){ fine=false; break outer; }
+  const catOn = !document.getElementById('sec_anycat').classList.contains('section-excluded');
+  const proOn = !document.getElementById('sec_anypro').classList.contains('section-excluded');
+  const modOn = !document.getElementById('sec_moduli').classList.contains('section-excluded');
+  const wsOn  = !document.getElementById('sec_ws').classList.contains('section-excluded');
+
+  // Supplemento ANYcat: visibile solo se sia ANYcat che ANYpro sono attivi
+  const supplRow = document.getElementById('row_suppl_anycat');
+  if (supplRow) {
+    const showSuppl = catOn && proOn;
+    supplRow.style.display = showSuppl ? '' : 'none';
+    if (!showSuppl) {
+      const qi = supplRow.querySelector('.qty');
+      if (qi) qi.value = '0';
+      const pi = supplRow.querySelector('.col-promo input');
+      if (pi) pi.value = '';
     }
   }
-  if(fine) upd['fase']='fine';
-  S.md = {};
-  DB.update(upd);
-}
 
-function disegnaGrid(players, maniN, nM){
-  var tot={};
-  players.forEach(function(p){
-    var a=farr(S.gs.scores&&S.gs.scores[p],nM);
-    tot[p]=a.reduce(function(s,v){return s+(v!==null&&v!==undefined?Number(v):0);},0);
+  const resCat = calcRows('tbody_anycat');
+  const resPro = calcRows('tbody_anypro');
+  subMod = calcRows('tbody_moduli').total;
+
+  subCat = resCat.total;
+  subPro = resPro.total;
+
+  document.getElementById('sub_anycat_servizi').textContent = fmt(resCat.servizi);
+  document.getElementById('sub_anycat_ricariche').textContent = fmt(resCat.ricariche);
+  document.getElementById('sub_anypro_servizi').textContent = fmt(resPro.servizi);
+  document.getElementById('sub_anypro_ricariche').textContent = fmt(resPro.ricariche);
+  document.getElementById('sub_moduli').textContent = fmt(subMod);
+
+  // Webservice — same pattern: unit price (canone) + activation, both with promo override
+  let subWs = 0;
+  subWsAtt = 0;
+  let subWsCanone2 = 0;
+  document.querySelectorAll('#tbody_ws tr').forEach(row => {
+    const qtyInput = row.querySelector('.qty');
+    const qty = parseIntIT(qtyInput ? qtyInput.value : '0');
+    if (qty > 0) {
+      // Canone: promo or list
+      const canonePromo = row.querySelector('.col-promo input');
+      const cp = canonePromo ? parseIT(canonePromo.value) : NaN;
+      const canone = (!isNaN(cp) && cp >= 0 && canonePromo.value !== '') ? cp : (parseFloat(row.dataset.unit) || 0);
+      // Attivazione: promo or list
+      const attPromo = row.querySelector('.att-promo');
+      const ap = attPromo ? parseIT(attPromo.value) : NaN;
+      const att = (!isNaN(ap) && ap >= 0 && attPromo.value !== '') ? ap : (parseFloat(row.dataset.att) || 0);
+      const total = (canone + att) * qty;
+      row.querySelector('.col-tot').textContent = fmt(total);
+      subWsCanone2 += canone * qty;
+      subWsAtt += att * qty;
+      subWs += total;
+    } else {
+      row.querySelector('.col-tot').textContent = fmt(0);
+    }
+    row.classList.toggle('row-hidden-print', hideEmpty && qty === 0);
   });
-  var vals=players.map(function(p){return tot[p];});
-  var minT=Math.min.apply(null,vals), maxT=Math.max.apply(null,vals), all=minT===maxT;
+  document.getElementById('sub_ws').textContent = fmt(subWs);
 
-  document.getElementById('gHead').innerHTML='<th class="cm">Mano</th>'+
-    players.map(function(p,i){
-      var c=!all&&players.length>1?(tot[p]===minT?'best':tot[p]===maxT?'worst':''):'';
-      return '<th>'+pillH(p,i)+'<span class="ptot '+c+'">'+tot[p]+'</span></th>';
-    }).join('');
+  if (!catOn) {
+    totRicariche -= calcRicariche('tbody_anycat'); subCat = 0;
+    document.getElementById('sub_anycat_servizi').textContent = fmt(0);
+    document.getElementById('sub_anycat_ricariche').textContent = fmt(0);
+  }
+  if (!proOn) {
+    totRicariche -= calcRicariche('tbody_anypro'); subPro = 0;
+    document.getElementById('sub_anypro_servizi').textContent = fmt(0);
+    document.getElementById('sub_anypro_ricariche').textContent = fmt(0);
+  }
+  if (!modOn) subMod = 0;
+  if (!wsOn) { subWsAtt = 0; subWsCanone2 = 0; subWs = 0; }
 
-  document.getElementById('gBody').innerHTML=maniN.map(function(nome,i){
-    var rc=i===S.mano?'ra':'';
-    var cells=players.map(function(p){
-      var sa=farr(S.gs.scores&&S.gs.scores[p],nM);
-      var sta=farr(S.gs.stars&&S.gs.stars[p],nM);
-      var v=sa[i], st=sta[i];
-      if(st) return '<td class="cs">★</td>';
-      if(v!==null && v!==undefined) return '<td>'+(Number(v))+'</td>';
-      return '<td></td>';
-    }).join('');
-    return '<tr class="'+rc+'" onclick="selMano('+i+')">'+
-      '<td class="cm">'+(i+1)+' · '+esc(nome)+'</td>'+cells+'</tr>';
-  }).join('');
+  // Canoni = totale sezioni - ricariche
+  const totalCanone = (subCat + subPro + subMod + subWsCanone2) - totRicariche;
+  const totalAtt = subWsAtt;
+  document.getElementById('grand_total').textContent = fmt(totalCanone + totalAtt + totRicariche);
+  document.getElementById('tot_att').textContent = fmt(totalAtt);
+  document.getElementById('tot_canone').textContent = fmt(totalCanone);
+  document.getElementById('tot_ricariche').textContent = fmt(totRicariche);
+
+  const days = parseInt(document.getElementById('validita').value) || 30;
 }
 
-// ═══════════════════════════════════════
-// HOME
-// ═══════════════════════════════════════
-function disegnaHome(){
-  if(!S.arb && !S.nome){ vai('pRuolo'); return; }
-  var sEl=document.getElementById('hStato');
-  var gEl=document.getElementById('hGioc');
-  var gList=document.getElementById('hGiocList');
-  var aEl=document.getElementById('hAttesa');
-  var aList=document.getElementById('hAttesaList');
-  var aTitle=document.getElementById('hAttesaTitle');
-  var bEl=document.getElementById('hBtns');
+/* ===== CLONE ROW ===== */
+function cloneRow(btn) {
+  const row = btn.closest('tr');
+  const tbody = row.closest('tbody');
+  const clone = row.cloneNode(true);
+  // Reset values in clone
+  clone.querySelectorAll('input').forEach(inp => {
+    if (inp.classList.contains('qty')) inp.value = '0';
+    else inp.value = '';
+  });
+  clone.querySelector('.col-tot').textContent = '€ 0,00';
+  clone.removeAttribute('id');
+  clone.dataset.cloned = '1';
+  // Replace the "+" with product name label and "✕" remove button
+  const voceCell = clone.querySelector('td');
+  const origVoce = row.querySelector('td');
+  // Get the product name text (first text node)
+  let prodName = '';
+  origVoce.childNodes.forEach(n => { if (n.nodeType === 3) prodName += n.textContent; });
+  prodName = prodName.trim().replace(/\s+/g, ' ');
+  // Remove clone button, tier-ref from clone
+  const cloneBtn = clone.querySelector('.btn-clone');
+  if (cloneBtn) cloneBtn.remove();
+  const tierRef = clone.querySelector('.tier-ref');
+  if (tierRef) tierRef.remove();
+  // Add remove button and label
+  const nameSpan = document.createTextNode(prodName + ' ');
+  const removeBtn = document.createElement('button');
+  removeBtn.className = 'btn-remove-clone';
+  removeBtn.textContent = '✕';
+  removeBtn.title = 'Rimuovi riga';
+  removeBtn.onclick = function() { clone.remove(); recalc(); };
+  voceCell.innerHTML = '';
+  voceCell.appendChild(nameSpan);
+  voceCell.appendChild(removeBtn);
+  // Add blur formatters to clone inputs
+  clone.querySelectorAll('.col-promo input, .att-promo').forEach(inp => {
+    inp.addEventListener('blur', function() {
+      const v = parseIT(this.value);
+      if (!isNaN(v) && v > 0) this.value = fmtInput(v);
+      else if (this.value.trim() === '0' || this.value.trim() === '0,00') this.value = '';
+    });
+  });
+  clone.querySelectorAll('.qty').forEach(inp => {
+    inp.addEventListener('blur', function() {
+      const v = parseIntIT(this.value);
+      this.value = v > 0 ? fmtQty(v) : '0';
+    });
+  });
+  // Insert after the original row
+  row.after(clone);
+  recalc();
+}
 
-  if(!S.gs){
-    sEl.innerHTML='<div class="stitle">Stato partita</div><div class="hrow"><div class="hlabel" style="color:#a8a29e">Nessuna partita in corso</div></div>';
-    gEl.style.display='none'; aEl.style.display='none';
-    bEl.innerHTML = S.arb ? '<button class="bp" onclick="vai(\'pSetup\');initSetup()">+ Nuova partita</button>' : '';
-    return;
-  }
-
-  var players = arr(S.gs.players);
-  var maniN   = arr(S.gs.maniN);
-  var mSel    = S.gs.manoSel || 0;
-  var stato   = S.gs.fase==='fine' ? 'Conclusa' : 'Mano '+(mSel+1)+' di '+maniN.length+' · '+maniN[mSel];
-
-  sEl.innerHTML='<div class="stitle">Stato partita</div>'+
-    '<div class="hrow"><div class="hlabel">Variante</div><div class="hval">'+(S.gs.variante==='completa'?'Carioca completa':'Carioca normale')+'</div></div>'+
-    '<div class="hrow"><div class="hlabel">1° mazziere</div><div class="hval">'+esc(S.gs.mazziere)+'</div></div>'+
-    '<div class="hrow"><div class="hlabel">Situazione</div><div class="hval">'+esc(stato)+'</div></div>';
-
-  // giocatori
-  gEl.style.display=''; gList.innerHTML='';
-  players.forEach(function(p,idx){
-    var row=document.createElement('div'); row.className='hrow';
-    var lbl=document.createElement('div'); lbl.className='hlabel'; lbl.textContent=(idx+1)+'. '+p;
-    row.appendChild(lbl);
-    if(S.arb){
-      var btn=document.createElement('button'); btn.className='bg bs'; btn.textContent='Rinomina';
-      btn.onclick=(function(pp,ii){ return function(){
-        var inp=document.createElement('input'); inp.className='einp'; inp.value=pp; inp.type='text';
-        var sv=document.createElement('button'); sv.className='bp bs'; sv.textContent='Salva';
-        sv.onclick=function(){
-          var n=inp.value.trim(); if(!n||n===pp){disegnaHome();return;}
-          var np=arr(S.gs.players).slice(); np[ii]=n;
-          var ns={},nst={};
-          arr(S.gs.players).forEach(function(pl,i){
-            var k=i===ii?n:pl;
-            ns[k]=S.gs.scores?S.gs.scores[pl]:{};
-            nst[k]=S.gs.stars?S.gs.stars[pl]:{};
-          });
-          DB.child('players').set(np);
-          DB.child('scores').set(ns);
-          DB.child('stars').set(nst);
+/* ===== LOCALITY AUTOCOMPLETE ===== */
+let locTimer = null;
+function searchLocalita(val) {
+  clearTimeout(locTimer);
+  const suggest = document.getElementById('loc_suggest');
+  if (val.length < 3) { suggest.style.display = 'none'; return; }
+  locTimer = setTimeout(async () => {
+    try {
+      const url = 'https://nominatim.openstreetmap.org/search?format=json&countrycodes=it&limit=8&addressdetails=1&q=' + encodeURIComponent(val);
+      const res = await fetch(url, { headers: { 'Accept-Language': 'it' } });
+      const data = await res.json();
+      if (!data.length) { suggest.style.display = 'none'; return; }
+      suggest.innerHTML = '';
+      const seen = new Set();
+      data.forEach(item => {
+        const addr = item.address || {};
+        const city = addr.city || addr.town || addr.village || addr.municipality || '';
+        if (!city || seen.has(city.toLowerCase())) return;
+        seen.add(city.toLowerCase());
+        const prov = addr.county || '';
+        const reg = addr.state || '';
+        const div = document.createElement('div');
+        div.innerHTML = city + ' <small>' + (prov ? prov + ', ' : '') + reg + '</small>';
+        div.onclick = () => {
+          document.getElementById('localita').value = city;
+          suggest.style.display = 'none';
+          autoFillRegProv(reg, prov);
         };
-        inp.onkeydown=function(e){if(e.key==='Enter')sv.onclick();};
-        row.innerHTML=''; row.appendChild(inp); row.appendChild(sv);
-        setTimeout(function(){inp.focus();},50);
-      }; })(p,idx);
-      row.appendChild(btn);
-    }
-    gList.appendChild(row);
-  });
-
-  // sala attesa (solo arbitro)
-  if(S.arb && S.gs.attesa){
-    var inAtt=Object.keys(S.gs.attesa).filter(function(k){
-      return !S.gs.autorizzati||!S.gs.autorizzati[k];
-    });
-    if(inAtt.length>0){
-      aEl.style.display=''; aTitle.textContent='🚪 In sala d\'attesa ('+inAtt.length+')'; aList.innerHTML='';
-      inAtt.forEach(function(nome){
-        var row=document.createElement('div'); row.className='arow';
-        var nm=document.createElement('div'); nm.className='anom'; nm.textContent=nome;
-        var btn=document.createElement('button'); btn.className='bp bs'; btn.textContent='Autorizza ✓';
-        btn.onclick=(function(n){ return function(){ DB.child('autorizzati/'+n).set(true); }; })(nome);
-        row.appendChild(nm); row.appendChild(btn); aList.appendChild(row);
+        suggest.appendChild(div);
       });
-    } else aEl.style.display='none';
-  } else aEl.style.display='none';
+      suggest.style.display = suggest.children.length ? 'block' : 'none';
+    } catch(e) { suggest.style.display = 'none'; }
+  }, 350);
+}
 
-  bEl.innerHTML='';
-  var bv=document.createElement('button'); bv.className='bp'; bv.textContent='Vai alla partita →';
-  bv.onclick=function(){ S.gs.fase==='fine'?(vai('pFin'),disegnaFin()):(vai('pGame'),disegnaGame()); };
-  bEl.appendChild(bv);
-  if(S.arb){
-    var bn=document.createElement('button'); bn.className='bg'; bn.textContent='+ Nuova partita';
-    bn.onclick=function(){ if(confirm('Nuova partita? I punteggi andranno persi.')) arbReset(); };
-    bEl.appendChild(bn);
+function autoFillRegProv(region, provincia) {
+  // Match region
+  const regSel = document.getElementById('regione');
+  const regOptions = Array.from(regSel.options);
+  const matchReg = regOptions.find(o => o.value && region.toLowerCase().includes(o.value.toLowerCase()));
+  if (matchReg) {
+    regSel.value = matchReg.value;
+    updateProvince();
+    // Try to match provincia code from name
+    if (provincia) {
+      const provSel = document.getElementById('provincia');
+      // The provincia from Nominatim is a name like "Messina" but our options are codes "ME"
+      // We need a reverse lookup
+      const provCode = provinceNameToCode(provincia);
+      if (provCode) {
+        const provOpt = Array.from(provSel.options).find(o => o.value === provCode);
+        if (provOpt) provSel.value = provCode;
+      }
+    }
   }
 }
 
-// ═══════════════════════════════════════
-// FINALE
-// ═══════════════════════════════════════
-function disegnaFin(){
-  if(!S.gs) return;
-  var players=arr(S.gs.players);
-  var maniN=arr(S.gs.maniN); var nM=maniN.length;
-  var rank=players.map(function(p){
-    return {n:p, tot:farr(S.gs.scores&&S.gs.scores[p],nM).reduce(function(s,v){return s+(v!==null&&v!==undefined?Number(v):0);},0)};
-  }).sort(function(a,b){return a.tot-b.tot;});
-  document.getElementById('finCard').innerHTML=rank.map(function(r,i){
-    return '<div class="frow"><div class="frank '+(i===0?'g':'')+'">'+( i===0?'★':i+1)+'</div><div class="fname">'+esc(r.n)+'</div><div class="fpts">'+r.tot+' pt</div></div>';
-  }).join('');
-}
-
-// ═══════════════════════════════════════
-// UTILS
-// ═══════════════════════════════════════
-function arr(x){
-  // converte qualsiasi cosa (array o oggetto Firebase) in array pulito
-  if(!x) return [];
-  if(Array.isArray(x)) return x.filter(function(v){return v!==null&&v!==undefined;});
-  return Object.keys(x).map(Number).sort(function(a,b){return a-b;}).map(function(k){return x[k];}).filter(function(v){return v!==null&&v!==undefined;});
-}
-
-function farr(x, len){
-  // come arr ma mantiene null e ha lunghezza fissa
-  if(!x) return new Array(len).fill(null);
-  if(Array.isArray(x)){
-    var a=x.slice(); while(a.length<len) a.push(null); return a;
+function provinceNameToCode(name) {
+  const map = {
+    "Agrigento":"AG","Alessandria":"AL","Ancona":"AN","Aosta":"AO","Arezzo":"AR","Ascoli Piceno":"AP",
+    "Asti":"AT","Avellino":"AV","Bari":"BA","Barletta-Andria-Trani":"BT","Belluno":"BL","Benevento":"BN",
+    "Bergamo":"BG","Biella":"BI","Bologna":"BO","Bolzano":"BZ","Brescia":"BS","Brindisi":"BR",
+    "Cagliari":"CA","Caltanissetta":"CL","Campobasso":"CB","Caserta":"CE","Catania":"CT","Catanzaro":"CZ",
+    "Chieti":"CH","Como":"CO","Cosenza":"CS","Cremona":"CR","Crotone":"KR","Cuneo":"CN",
+    "Enna":"EN","Fermo":"FM","Ferrara":"FE","Firenze":"FI","Foggia":"FG","Forlì-Cesena":"FC",
+    "Frosinone":"FR","Genova":"GE","Gorizia":"GO","Grosseto":"GR","Imperia":"IM","Isernia":"IS",
+    "L'Aquila":"AQ","La Spezia":"SP","Latina":"LT","Lecce":"LE","Lecco":"LC","Livorno":"LI",
+    "Lodi":"LO","Lucca":"LU","Macerata":"MC","Mantova":"MN","Massa-Carrara":"MS","Matera":"MT",
+    "Messina":"ME","Milano":"MI","Modena":"MO","Monza e della Brianza":"MB","Napoli":"NA",
+    "Novara":"NO","Nuoro":"NU","Oristano":"OR","Padova":"PD","Palermo":"PA","Parma":"PR",
+    "Pavia":"PV","Perugia":"PG","Pesaro e Urbino":"PU","Pescara":"PE","Piacenza":"PC","Pisa":"PI",
+    "Pistoia":"PT","Pordenone":"PN","Potenza":"PZ","Prato":"PO","Ragusa":"RG","Ravenna":"RA",
+    "Reggio Calabria":"RC","Reggio Emilia":"RE","Rieti":"RI","Rimini":"RN","Roma":"RM","Rovigo":"RO",
+    "Salerno":"SA","Sassari":"SS","Savona":"SV","Siena":"SI","Siracusa":"SR","Sondrio":"SO",
+    "Sud Sardegna":"SU","Taranto":"TA","Teramo":"TE","Terni":"TR","Torino":"TO","Trapani":"TP",
+    "Trento":"TN","Treviso":"TV","Trieste":"TS","Udine":"UD","Varese":"VA","Venezia":"VE",
+    "Verbano-Cusio-Ossola":"VB","Vercelli":"VC","Verona":"VR","Vibo Valentia":"VV","Vicenza":"VI","Viterbo":"VT"
+  };
+  // Try exact match first, then partial
+  if (map[name]) return map[name];
+  const lower = name.toLowerCase();
+  for (const [k, v] of Object.entries(map)) {
+    if (k.toLowerCase() === lower || lower.includes(k.toLowerCase()) || k.toLowerCase().includes(lower)) return v;
   }
-  var a=[];
-  for(var i=0;i<len;i++) a.push(x[i]!==undefined?x[i]:null);
-  return a;
+  return null;
 }
 
-function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+// Close suggest on click outside
+document.addEventListener('click', e => {
+  if (!e.target.closest('#loc_suggest') && e.target.id !== 'localita') {
+    document.getElementById('loc_suggest').style.display = 'none';
+  }
+});
 
-function pillH(nome, idx){
-  var c=COLORS[idx%COLORS.length];
-  return '<span class="pill" style="background:'+c.bg+';color:'+c.tx+'">'+esc(nome)+'</span>';
-}
-
-function genOtp(){
-  var o=''; for(var i=0;i<8;i++) o+=Math.floor(Math.random()*10); return o;
-}
-
-function copiaOtp(){
-  var otp=document.getElementById('otpDisp').textContent;
-  if(navigator.clipboard) navigator.clipboard.writeText(otp).then(function(){
-    var btn=event.target; btn.textContent='Copiato!'; setTimeout(function(){btn.textContent='Copia';},2000);
+function resetForm() {
+  if (!confirm('Azzerare tutti i campi della proposta?')) return;
+  // Rimuovi righe clonate
+  document.querySelectorAll('tr[data-cloned]').forEach(r => r.remove());
+  document.querySelectorAll('input[type="number"]').forEach(i => { if(i.id!=='validita') i.value=''; });
+  document.querySelectorAll('.qty').forEach(i => i.value = '0');
+  document.querySelectorAll('input[type="text"],input[type="email"],input[type="date"]').forEach(i => i.value='');
+  document.querySelectorAll('select').forEach(s => s.selectedIndex=0);
+  document.querySelectorAll('.att-promo').forEach(i => i.value='');
+  document.querySelectorAll('.section-note,.pag-note').forEach(i => i.value='');
+  document.getElementById('note_generali').value = '';
+  document.querySelectorAll('input[type="radio"]').forEach(r => r.checked=false);
+  document.getElementById('validita').value = 15;
+  // Disable all sections
+  ['sec_anycat','sec_anypro','sec_moduli','sec_ws'].forEach(id => {
+    toggleSection(id, false);
+    document.getElementById('inc_'+id.replace('sec_','')).checked = false;
   });
+  updateProvince();
+  recalc();
 }
 
-function ls(k){ return localStorage.getItem(k); }
-function lsSet(k,v){ localStorage.setItem(k,v); }
-function show(id){ var el=document.getElementById(id); if(el) el.style.display=''; }
+function logout() {
+  try { sessionStorage.removeItem('pe_auth'); } catch(e) {}
+  document.getElementById('lock-screen').style.display = 'flex';
+  document.querySelector('.page').classList.add('locked');
+  document.getElementById('lock-pwd').value = '';
+  document.getElementById('lock-pwd').focus();
+}
+
+async function hashPwd(pwd) {
+  const enc = new TextEncoder().encode(pwd.toUpperCase());
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+async function unlock() {
+  const input = document.getElementById('lock-pwd').value.trim();
+  const hash = await hashPwd(input);
+  if (hash === '31e804ba4983b030b2dae6b9758f58748477385b14ccd787fef05b90f2641088') {
+    document.getElementById('lock-screen').style.display = 'none';
+    document.querySelector('.page').classList.remove('locked');
+    try { sessionStorage.setItem('pe_auth','1'); } catch(e) {}
+  } else {
+    document.getElementById('lock-err').textContent = 'Codice non valido';
+    document.getElementById('lock-pwd').value = '';
+    document.getElementById('lock-pwd').focus();
+  }
+}
+
+/* ===== REPOSITORY PROPOSTE (GitHub) ===== */
+const REPO_DIR = 'proposte';
+let ghToken = '', ghRepo = '';
+let currentPropostaId = null; // id file attualmente caricato
+
+function repoStatus(msg) { document.getElementById('repo_status').textContent = msg; }
+
+function repoConnect() {
+  ghToken = document.getElementById('gh_token').value.trim();
+  ghRepo = document.getElementById('gh_repo').value.trim();
+  if (!ghToken || !ghRepo) { repoStatus('Inserire token e repo.'); return; }
+  try { localStorage.setItem('pe_gh_token', ghToken); localStorage.setItem('pe_gh_repo', ghRepo); } catch(e) {}
+  repoLoadList();
+}
+
+function ghHeaders() {
+  return { 'Authorization': 'token ' + ghToken, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' };
+}
+
+async function ghGet(path) {
+  const r = await fetch('https://api.github.com/repos/' + ghRepo + '/contents/' + path, { headers: ghHeaders() });
+  if (r.status === 404) return null;
+  if (!r.ok) throw new Error('GitHub API: ' + r.status);
+  return r.json();
+}
+
+async function ghPut(path, content, sha) {
+  const body = { message: 'Proposta: ' + path, content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))), branch: 'main' };
+  if (sha) body.sha = sha;
+  const r = await fetch('https://api.github.com/repos/' + ghRepo + '/contents/' + path, { method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body) });
+  if (!r.ok) { const e = await r.json(); throw new Error(e.message || r.status); }
+  return r.json();
+}
+
+async function ghDelete(path, sha) {
+  const body = { message: 'Elimina proposta: ' + path, sha, branch: 'main' };
+  const r = await fetch('https://api.github.com/repos/' + ghRepo + '/contents/' + path, { method: 'DELETE', headers: ghHeaders(), body: JSON.stringify(body) });
+  if (!r.ok) throw new Error('Errore eliminazione');
+}
+
+function collectFormData() {
+  const data = {};
+  // Campi testo
+  ['ragione','piva','referente','indirizzo','cap','localita','email_cliente','tel_cliente','data_proposta','validita','n_proposta'].forEach(id => {
+    data[id] = document.getElementById(id)?.value || '';
+  });
+  data.regione = document.getElementById('regione')?.value || '';
+  data.provincia = document.getElementById('provincia')?.value || '';
+  // Sezioni attive
+  data.sections = {};
+  ['anycat','anypro','moduli','ws'].forEach(s => {
+    data.sections[s] = document.getElementById('inc_' + s)?.checked || false;
+  });
+  // ANYpro plan
+  const planSel = document.getElementById('anypro_plan');
+  data.anypro_plan = planSel ? planSel.value : '';
+  // Quantità e promo per ogni riga
+  data.rows = {};
+  document.querySelectorAll('tbody tr[id]').forEach(row => {
+    const qty = row.querySelector('.qty');
+    const promo = row.querySelector('.col-promo input');
+    const attPromo = row.querySelector('.att-promo');
+    if (qty) {
+      data.rows[row.id] = { qty: qty.value };
+      if (promo) data.rows[row.id].promo = promo.value;
+      if (attPromo) data.rows[row.id].attPromo = attPromo.value;
+    }
+  });
+  // Note sezione
+  data.sectionNotes = {};
+  document.querySelectorAll('.section-note').forEach(n => {
+    if (n.closest('tfoot')?.closest('.price-section')?.id) {
+      data.sectionNotes[n.closest('.price-section').id] = n.value;
+    }
+  });
+  // Pagamento
+  data.pag_servizi = document.querySelector('input[name="pag_servizi"]:checked')?.value || '';
+  data.pag_ricariche = document.querySelector('input[name="pag_ricariche"]:checked')?.value || '';
+  data.pag_note = {};
+  document.querySelectorAll('.pag-note').forEach((n, i) => { data.pag_note[i] = n.value; });
+  data.hide_empty = document.getElementById('hide_empty')?.checked || false;
+  data.note_generali = document.getElementById('note_generali')?.value || '';
+  return data;
+}
+
+function restoreFormData(data) {
+  ['ragione','piva','referente','indirizzo','cap','localita','email_cliente','tel_cliente','data_proposta','validita','n_proposta'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && data[id] !== undefined) el.value = data[id];
+  });
+  if (data.regione) {
+    document.getElementById('regione').value = data.regione;
+    updateProvince();
+    if (data.provincia) document.getElementById('provincia').value = data.provincia;
+  }
+  // Sezioni
+  if (data.sections) {
+    Object.entries(data.sections).forEach(([s, on]) => {
+      const cb = document.getElementById('inc_' + s);
+      if (cb) { cb.checked = on; toggleSection('sec_' + s, on); }
+    });
+  }
+  // ANYpro plan
+  if (data.anypro_plan) {
+    const ps = document.getElementById('anypro_plan');
+    if (ps) { ps.value = data.anypro_plan; ps.dispatchEvent(new Event('change')); }
+  }
+  // Righe
+  if (data.rows) {
+    Object.entries(data.rows).forEach(([rowId, vals]) => {
+      const row = document.getElementById(rowId);
+      if (!row) return;
+      const qty = row.querySelector('.qty');
+      const promo = row.querySelector('.col-promo input');
+      const attPromo = row.querySelector('.att-promo');
+      if (qty && vals.qty) qty.value = vals.qty;
+      if (promo && vals.promo) promo.value = vals.promo;
+      if (attPromo && vals.attPromo) attPromo.value = vals.attPromo;
+    });
+  }
+  // Note sezione
+  if (data.sectionNotes) {
+    Object.entries(data.sectionNotes).forEach(([secId, val]) => {
+      const sec = document.getElementById(secId);
+      if (sec) { const n = sec.querySelector('.section-note'); if (n) n.value = val; }
+    });
+  }
+  // Pagamento
+  if (data.pag_servizi) {
+    const r = document.querySelector('input[name="pag_servizi"][value="'+data.pag_servizi+'"]');
+    if (r) r.checked = true;
+  }
+  if (data.pag_ricariche) {
+    const r = document.querySelector('input[name="pag_ricariche"][value="'+data.pag_ricariche+'"]');
+    if (r) r.checked = true;
+  }
+  if (data.pag_note) {
+    document.querySelectorAll('.pag-note').forEach((n, i) => { if (data.pag_note[i]) n.value = data.pag_note[i]; });
+  }
+  if (data.hide_empty !== undefined) document.getElementById('hide_empty').checked = data.hide_empty;
+  if (data.note_generali) document.getElementById('note_generali').value = data.note_generali;
+  recalc();
+}
+
+function propostaFileName(data) {
+  const nome = (data.ragione || 'senza-nome').replace(/[^a-zA-Z0-9À-ÿ\s-]/g,'').trim().replace(/\s+/g, '_').substring(0, 40);
+  const num = (data.n_proposta || '').replace(/[^a-zA-Z0-9_-]/g, '_') || 'bozza';
+  return REPO_DIR + '/' + num + '__' + nome + '.json';
+}
+
+async function repoSave() {
+  if (!ghToken || !ghRepo) { repoStatus('Connettere prima il repository GitHub.'); return; }
+  const formData = collectFormData();
+  const fileName = propostaFileName(formData);
+  repoStatus('Salvataggio in corso...');
+  try {
+    // Check if file exists (get sha)
+    const existing = await ghGet(fileName);
+    let meta = { version: 1, createdAt: new Date().toISOString(), sentAt: null, history: [] };
+    let sha = null;
+    if (existing) {
+      const old = JSON.parse(decodeURIComponent(escape(atob(existing.content))));
+      meta = old._meta || meta;
+      meta.history.push({ savedAt: meta.lastSavedAt || meta.createdAt, version: meta.version });
+      meta.version++;
+      sha = existing.sha;
+    }
+    meta.lastSavedAt = new Date().toISOString();
+    const payload = { ...formData, _meta: meta };
+    await ghPut(fileName, payload, sha);
+    currentPropostaId = fileName;
+    updateVersionBanner(meta);
+    repoStatus('Proposta salvata — v' + meta.version + (meta.sentAt ? ' (già inviata il ' + new Date(meta.sentAt).toLocaleDateString('it-IT') + ')' : ''));
+    repoLoadList();
+  } catch(e) {
+    repoStatus('Errore: ' + e.message);
+  }
+}
+
+async function repoMarkSent() {
+  if (!ghToken || !ghRepo) { repoStatus('Connettere prima il repository.'); return; }
+  if (!currentPropostaId) { repoStatus('Salvare prima la proposta.'); return; }
+  repoStatus('Aggiornamento stato...');
+  try {
+    const existing = await ghGet(currentPropostaId);
+    if (!existing) { repoStatus('File non trovato. Salvare prima.'); return; }
+    const data = JSON.parse(decodeURIComponent(escape(atob(existing.content))));
+    if (!data._meta) data._meta = {};
+    if (!data._meta.sentAt) {
+      data._meta.sentAt = new Date().toISOString();
+      data._meta.firstSentAt = data._meta.sentAt;
+    }
+    data._meta.lastSentAt = new Date().toISOString();
+    await ghPut(currentPropostaId, data, existing.sha);
+    updateVersionBanner(data._meta);
+    repoStatus('Proposta segnata come inviata il ' + new Date(data._meta.lastSentAt).toLocaleDateString('it-IT'));
+    repoLoadList();
+  } catch(e) {
+    repoStatus('Errore: ' + e.message);
+  }
+}
+
+async function repoLoad(path) {
+  if (!ghToken || !ghRepo) return;
+  repoStatus('Caricamento...');
+  try {
+    const file = await ghGet(path);
+    if (!file) { repoStatus('File non trovato.'); return; }
+    const data = JSON.parse(decodeURIComponent(escape(atob(file.content))));
+    const meta = data._meta || {};
+    delete data._meta;
+    restoreFormData(data);
+    currentPropostaId = path;
+    updateVersionBanner(meta);
+    repoStatus('Proposta caricata — v' + (meta.version || 1));
+  } catch(e) {
+    repoStatus('Errore: ' + e.message);
+  }
+}
+
+async function repoDelete(path) {
+  if (!confirm('Eliminare definitivamente questa proposta dall\'archivio?')) return;
+  repoStatus('Eliminazione...');
+  try {
+    const file = await ghGet(path);
+    if (file) await ghDelete(path, file.sha);
+    if (currentPropostaId === path) { currentPropostaId = null; document.getElementById('repo_version_banner').style.display = 'none'; }
+    repoStatus('Proposta eliminata.');
+    repoLoadList();
+  } catch(e) {
+    repoStatus('Errore: ' + e.message);
+  }
+}
+
+function updateVersionBanner(meta) {
+  const banner = document.getElementById('repo_version_banner');
+  if (meta && meta.version > 1 && meta.sentAt) {
+    document.getElementById('repo_first_sent').textContent = new Date(meta.firstSentAt || meta.sentAt).toLocaleDateString('it-IT');
+    document.getElementById('repo_ver_num').textContent = meta.version;
+    banner.style.display = 'block';
+  } else {
+    banner.style.display = 'none';
+  }
+}
+
+async function repoLoadList() {
+  const listEl = document.getElementById('repo_list');
+  if (!ghToken || !ghRepo) { listEl.innerHTML = ''; return; }
+  try {
+    const items = await ghGet(REPO_DIR);
+    if (!items || !Array.isArray(items)) { listEl.innerHTML = '<div style="padding:8px;font-size:11px;color:var(--light-gray);">Nessuna proposta salvata.</div>'; return; }
+    // Fetch each file to get metadata
+    let html = '';
+    for (const item of items) {
+      if (!item.name.endsWith('.json')) continue;
+      let meta = {}, ragione = item.name.replace('.json','');
+      try {
+        const file = await ghGet(item.path);
+        if (file) {
+          const d = JSON.parse(decodeURIComponent(escape(atob(file.content))));
+          meta = d._meta || {};
+          ragione = d.ragione || ragione;
+        }
+      } catch(e) {}
+      const isSent = !!meta.sentAt;
+      const badgeClass = isSent ? 'sent' : 'draft';
+      const badgeText = isSent ? 'Inviata' : 'Bozza';
+      const dateStr = meta.lastSavedAt ? new Date(meta.lastSavedAt).toLocaleDateString('it-IT') : '';
+      const verStr = meta.version ? 'v' + meta.version : '';
+      html += '<div class="repo-item" onclick="repoLoad(\'' + item.path.replace(/'/g,"\\'") + '\')">';
+      html += '<div class="ri-info"><div class="ri-name">' + ragione + '</div>';
+      html += '<div class="ri-meta">' + verStr + (dateStr ? ' · ' + dateStr : '') + '</div></div>';
+      html += '<span class="ri-badge ' + badgeClass + '">' + badgeText + '</span>';
+      html += '<div class="ri-actions" onclick="event.stopPropagation()">';
+      html += '<button class="ri-del" onclick="repoDelete(\'' + item.path.replace(/'/g,"\\'") + '\')">✕</button>';
+      html += '</div></div>';
+    }
+    listEl.innerHTML = html || '<div style="padding:8px;font-size:11px;color:var(--light-gray);">Nessuna proposta salvata.</div>';
+  } catch(e) {
+    listEl.innerHTML = '<div style="padding:8px;font-size:11px;color:#c0392b;">Errore: ' + e.message + '</div>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    if (sessionStorage.getItem('pe_auth') === '1') {
+      document.getElementById('lock-screen').style.display = 'none';
+      document.querySelector('.page').classList.remove('locked');
+    }
+  } catch(e) {}
+  document.getElementById('lock-pwd')?.focus();
+  // Restore GitHub config
+  try {
+    const t = localStorage.getItem('pe_gh_token');
+    const r = localStorage.getItem('pe_gh_repo');
+    if (t && r) {
+      ghToken = t; ghRepo = r;
+      document.getElementById('gh_token').value = t;
+      document.getElementById('gh_repo').value = r;
+      repoLoadList();
+    }
+  } catch(e) {}
+  // Auto-format promo inputs with Italian thousand sep on blur
+  document.querySelectorAll('.col-promo input, .att-promo').forEach(inp => {
+    inp.addEventListener('blur', function() {
+      const v = parseIT(this.value);
+      if (!isNaN(v) && v > 0) this.value = fmtInput(v);
+      else if (this.value.trim() === '0' || this.value.trim() === '0,00') this.value = '';
+    });
+  });
+  // Auto-format qty inputs with thousand sep on blur
+  document.querySelectorAll('.qty').forEach(inp => {
+    inp.addEventListener('blur', function() {
+      const v = parseIntIT(this.value);
+      this.value = v > 0 ? fmtQty(v) : '0';
+    });
+  });
+  initRegioni();
+  document.getElementById('data_proposta').value = new Date().toISOString().split('T')[0];
+  recalc();
+});
 </script>
 </body>
 </html>
